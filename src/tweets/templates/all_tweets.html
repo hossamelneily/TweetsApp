@@ -1,4 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
 
     {% for i in object_list %}
-        {{ i.text }}
+        {{ i.content }}
     {% endfor %}
+
+{% endblock %}

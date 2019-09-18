@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
 
     path('admin/', admin.site.urls),
-    url('^$',include('tweets.urls',namespace='tweets')),
+    url('^',include('tweets.urls', namespace='tweets')),
     # url('^cart/', include("cart.urls",namespace="cart")),
     # url(r'^$',include('tweets.urls',namespace='tweets'))
 ]

@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if object %}
+    {{ object.content }} <br>
+    {{ object.timestamp|timesince }}
+{%  endif %}
+{% endblock %}

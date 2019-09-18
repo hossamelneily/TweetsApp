@@ -4,15 +4,16 @@ from django.urls import path
 from django.conf.urls import include,url
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import Get_Tweets
+from .views import GetTweet,DetailTweet,CreateTweet
 
 
 app_name="tweets"
 
 urlpatterns = [
 
-    url(r'^',Get_Tweets.as_view(),name='all')
-    # url('^cart/', include("cart.urls",namespace="cart")),
+    url(r'^$',GetTweet.as_view(),name='all'),
+    url(r'^tweet/(?P<pk>\d+)/$',DetailTweet.as_view(),name='detail'),
+    url(r'^tweet/create/$',CreateTweet.as_view(),name='create')
 ]
 
 if settings.DEBUG:
