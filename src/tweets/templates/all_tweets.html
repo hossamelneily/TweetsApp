@@ -1,9 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <div class="row">
+{#        <div class="col-sm-3">#}
+            <div class="media">
+                  <div class="media-left">
+                    <a href="#">
+                      <img class="media-object" src="..." alt="...">
+                    </a>
+                  </div>
+                  <div class="media-body">
+                    <h4 class="media-heading">Media heading</h4>
+                    ...
+                  </div>
+            </div>
+            {% for i in object_list %}
 
-    {% for i in object_list %}
-        {{ i.content }}
+            {{ i.user.username }} <br>
+{#        </div>#}
+
     {% endfor %}
+    </div>
+
 
 {% endblock %}

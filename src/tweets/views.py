@@ -48,6 +48,22 @@ class CreateTweet(CreateView):
 
 
 
+class SearchTweet(ListView):
+
+    template_name = "all_tweets.html"
+
+    def get_queryset(self):
+        query = self.request.GET.get('q', None)
+        if query is not None:
+            qs = Tweet.objects.search(query)
+        else:
+            qs = Tweet.objects.none()
+        print(qs)
+        return qs
+
+
+
+
 
 
 
