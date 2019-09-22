@@ -1,17 +1,27 @@
 from django.shortcuts import render
-from django.views.generic import ListView,DetailView,CreateView,UpdateView
+from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from .models import Tweet
 from .forms import TweetForm
+from django.urls import reverse_lazy,reverse
 # Create your views here.
 
 
 
 
 class GetTweet(ListView):
-
     model = Tweet
-
     template_name = 'all_tweets.html'
+
+
+    def get_context_data(self, *args,**kwargs):
+        context = super().get_context_data(*args,**kwargs)
+        context['create_form'] = TweetForm()
+        context['include_url'] = reverse('tweets:create')
+        context['btn_title'] = 'Tweet'
+        return context
+
+
+
 
 
 
@@ -27,13 +37,7 @@ class DetailTweet(DetailView):
 class CreateTweet(CreateView):
     form_class = TweetForm
 
-    template_name = 'form.html'
-
-    # def get_form_kwargs(self):
-    #     kwargs = super().get_form_kwargs()
-    #     kwargs['request'] = self.request
-    #     return kwargs
-
+    template_name = 'all_tweets.html'
 
     def form_valid(self, form):
         # form.instance.user = self.request.user
@@ -48,6 +52,35 @@ class CreateTweet(CreateView):
 
 
 
+class UpdateTweet(UpdateView):
+    form_class = TweetForm
+    model = Tweet
+    template_name = 'generic_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['btn-value'] = 'Update'
+        return context
+
+
+
+
+class DeleteTweet(DeleteView):
+    model = Tweet
+    success_message = "Deleted Successfully"
+    success_url = reverse_lazy('tweets:all')
+
+    template_name = 'form_delete.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['btn-value'] = 'Delete'
+        return context
+
+
+
+
+# search form CBV
 class SearchTweet(ListView):
 
     template_name = "all_tweets.html"

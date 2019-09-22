@@ -1,26 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="row">
-{#        <div class="col-sm-3">#}
+
+        <div class="col-sm-3 col-xs-12">
+            {% include 'user_details.html' %}
+        </div>
+
+        <div class="col-sm-9">
+            <div class="row">
+                {% include 'generic_form.html' with form=create_form include_url=include_url btn_value=btn_title %}
+            </div>
+            <br>
+
+            {% for i in object_list %}
             <div class="media">
                   <div class="media-left">
-                    <a href="#">
-                      <img class="media-object" src="..." alt="...">
+                    <a href="{{ i.get_absolute_url }}">
+                      <img class="media-object" style="width:60px" src='{% if i.image %}{{ i.image.url }}{% endif %}' alt="...">
                     </a>
                   </div>
                   <div class="media-body">
-                    <h4 class="media-heading">Media heading</h4>
-                    ...
+                      <h4 class="media-heading"><a href="{{ i.user.username }}">{{ i.user.username }}</a></h4>
+                        <p>
+                        {{ i.content }}
+                    </p>
                   </div>
             </div>
-            {% for i in object_list %}
+             <br>
+            {% endfor %}
+        </div>
 
-            {{ i.user.username }} <br>
-{#        </div>#}
 
-    {% endfor %}
-    </div>
+
 
 
 {% endblock %}

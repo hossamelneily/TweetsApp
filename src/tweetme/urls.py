@@ -24,10 +24,11 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     url('^',include('tweets.urls', namespace='tweets')),
+    url('^api/tweet',include('tweets.api.urls', namespace='api-tweet')),
     # url('^cart/', include("cart.urls",namespace="cart")),
     # url(r'^$',include('tweets.urls',namespace='tweets'))
 ]
 
 if settings.DEBUG:
     urlpatterns+= static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

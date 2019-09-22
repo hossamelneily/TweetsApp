@@ -11,7 +11,9 @@ User = get_user_model()
 
 
 def content_file_name(instance,filename):
-    return os.path.join(settings.M)
+    return 'user_{0}/{1}'.format(instance.user.id, filename)
+
+
 class TweetQS(models.query.QuerySet):
 
     def search(self,query):

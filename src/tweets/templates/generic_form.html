@@ -1,0 +1,16 @@
+<form  method="POST" action="{% if include_url %}{{ include_url }}{%  endif %}">{% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+            <input class="form-control" type="submit" value="{{ btn_value }}" placeholder="what's in you mind">
+        </div>
+</form>
+
+
+<!--
+bootstrap form group
+-->
+{#<div class="form-group">#}
+{#    <label for="exampleInputEmail1">Email address</label>#}
+{#    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">#}
+{#    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>#}
+{#  </div>#}
