@@ -23,10 +23,15 @@ from django.conf.urls.static import static
 urlpatterns = [
 
     path('admin/', admin.site.urls),
+
+
+
     url('^',include('tweets.urls', namespace='tweets')),
-    url('^api/tweet',include('tweets.api.urls', namespace='api-tweet')),
-    # url('^cart/', include("cart.urls",namespace="cart")),
-    # url(r'^$',include('tweets.urls',namespace='tweets'))
+
+
+
+
+    url('^api/tweet/',include('tweets.api.urls', namespace='api-tweet')),
 ]
 
 if settings.DEBUG:

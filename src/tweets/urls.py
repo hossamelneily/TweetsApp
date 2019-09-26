@@ -12,11 +12,14 @@ app_name="tweets"
 urlpatterns = [
 
     url(r'^$',GetTweet.as_view(),name='all'),
+    url(r'^$',GetTweet.as_view(),name='all'),
     url(r'^tweet/(?P<pk>\d+)/$',DetailTweet.as_view(),name='detail'),
     url(r'^tweet/create/$',CreateTweet.as_view(),name='create'),
     url(r'^tweet/delete/(?P<pk>\d+)/$',DeleteTweet.as_view(),name='delete'),
     url(r'^tweet/update/(?P<pk>\d+)/$',UpdateTweet.as_view(),name='update'),
-    url(r'^tweet/search/$',SearchTweet.as_view(),name='search')
+    url(r'^tweet/search/$',SearchTweet.as_view(),name='search'),
+
+
 ]
 
 if settings.DEBUG:

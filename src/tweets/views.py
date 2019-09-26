@@ -36,17 +36,21 @@ class DetailTweet(DetailView):
 
 class CreateTweet(CreateView):
     form_class = TweetForm
-
     template_name = 'all_tweets.html'
+    success_url = reverse_lazy('tweets:all')
+
+    def get_context_data(self, *args,**kwargs):
+        context = super().get_context_data(*args,**kwargs)
+        context['create_form'] = TweetForm()
+        context['include_url'] = reverse('tweets:create')
+        context['btn_title'] = 'Tweet'
+        return context
 
     def form_valid(self, form):
-        # form.instance.user = self.request.user
-        print(form.instance)
-        # self.object = form.save(commit=False)
-        # print(dir(form))
-        print(form.instance.user)
-        # self.object.['user'] = self.request.user
-        # self.object.save()
+        if self.request.user.is_authenticated:
+            form.instance.user = self.request.user
+        # if form.instance.content  is not None:
+        #     form.instance.content
         return super().form_valid(form)
 
 
@@ -91,7 +95,7 @@ class SearchTweet(ListView):
             qs = Tweet.objects.search(query)
         else:
             qs = Tweet.objects.none()
-        print(qs)
+        # print(qs)
         return qs
 
 

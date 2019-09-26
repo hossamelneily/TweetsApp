@@ -1,6 +1,16 @@
 .fa-twitter {
     color: lightskyblue;
   }
+.fa-facebook {
+    color: lightskyblue;
+  }
+.fa-google-plus{
+	color: lightskyblue;
+}
+
+.fa-linkedin {
+	color: lightskyblue;
+}
 
 body {
     background-color: rgb(255, 255, 255);
@@ -8,6 +18,13 @@ body {
     font-weight: 300;
 }
 
+
+#TweetTA {
+    border: 1px #ddd solid;
+    height: 120px;
+    font: 13pt Consolas;
+    resize: none;
+}
 
 /* navbar */
 .navbar-default {
@@ -24,34 +41,42 @@ body {
     color: #5E5E5E;
 }
 
+
+
+.social-icon {
+ width: 20px;
+ height: 20px;
+ margin: 0 5px;
+}
+
 #search-form {
     margin-left: 251px;
 }
 
 
-.panel-heading {
-    padding: 10px 15px;
-    background-color: #353535;
-    border-top: 1px solid #ddd;
-    border-bottom-right-radius: 3px;
-    border-bottom-left-radius: 3px;
-    position: absolute;
-    top: 0%;
-    cursor:pointer;
-    opacity:0.8;
-    color:white;
-    border:none;
-}
+/*.panel-heading {*/
+    /*padding: 10px 15px;*/
+    /*background-color: #353535;*/
+    /*border-top: 1px solid #ddd;*/
+    /*border-bottom-right-radius: 3px;*/
+    /*border-bottom-left-radius: 3px;*/
+    /*position: absolute;*/
+    /*top: 0%;*/
+    /*cursor:pointer;*/
+    /*opacity:0.8;*/
+    /*color:white;*/
+    /*border:none;*/
+/*}*/
 
 .panel-body {
     padding: 60px 4% 5% 7%;
 }
 
-.box {
-    padding:2%;
-    border:1px #ddd solid;
-    cursor:pointer;
-}
+/*.box {*/
+    /*padding:2%;*/
+    /*border:1px #ddd solid;*/
+    /*cursor:pointer;*/
+/*}*/
 
 
 .remove-decoration {
@@ -112,16 +137,18 @@ ul.social-network li {
 	-webkit-border-radius:50%;
 	border-radius:50%;
 	text-align:center;
-	width: 35px;
-	height: 35px;
+	width: 25px;
+	height: 25px;
 	font-size:18px;
 }
 #IdFooter .social-circle li i {
 	margin:0;
-	line-height:38px;
+	line-height:20px;
 	text-align: center;
 }
-
+.panel-footer{
+	padding: 5px 19px;
+}
 #IdFooter .social-circle li a:hover i, .triggeredHover {
 	-moz-transform: rotate(360deg);
 	-webkit-transform: rotate(360deg);
@@ -144,4 +171,58 @@ ul.social-network li {
 
 #IdFooter a {
  background-color: #D3D3D3;
+}
+
+/*Body FOOTER  START///////////////////*/
+.footer {
+  padding: 1.5rem;
+  background-color: #F8F8F8;
+  border-color: #E7E7E7;
+  color: #878c94;
+  /*margin-top: 177px;*/
+   position: fixed;
+	width: 100%;
+	bottom: 0px;
+	height: 75px;
+}
+/*Body FOOTER  END///////////////////*/
+
+/*.footer2{*/
+	/*padding: 5px 5px;*/
+
+/*}*/
+
+#addons {
+	font-size: small;
+}
+
+.preview-box {
+	padding: 15px;
+    /*cursor: pointer;*/
+    overflow: hidden;
+    background: #FFF;
+    border: 1px solid #e6e6e6;
+
+}
+.preview-box:hover{
+	background: #f9f9f9;
+}
+
+.LoadMoreTweets{
+	background-color: lightskyblue;
+}
+
+.MidContent{
+	margin-left: 20px;
+	background-color: #f9f9f9;
+	border: 1px solid grey;
+	border-radius: 5px;
+
+}
+
+#tweet_form {
+	padding-right: 40px;
+    padding-left: 40px;
+    padding-top: 20px;
+    padding-bottom: 5px;
 }

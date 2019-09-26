@@ -31,7 +31,7 @@ class TweetModelManager(models.Manager):
 
 class Tweet(models.Model):
     user       = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
-    content    = models.TextField(max_length=163,null=True,blank=True)
+    content    = models.TextField(max_length=140,null=True,blank=True,error_messages={'max_length':'you can write at most 10 characters'})
     image      = models.ImageField(upload_to=content_file_name,null=True,blank=True)
     timestamp  = models.DateTimeField(auto_now_add=True)
     updated    = models.DateTimeField(auto_now=True,)
@@ -39,6 +39,7 @@ class Tweet(models.Model):
     class Meta:
         verbose_name = 'MyTweet'
         verbose_name_plural = 'tweets'
+        ordering=['-timestamp']
 
     objects = TweetModelManager()
     def get_absolute_url(self):

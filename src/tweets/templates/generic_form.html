@@ -1,16 +1,22 @@
-<form  method="POST" action="{% if include_url %}{{ include_url }}{%  endif %}">{% csrf_token %}
-        <div class="form-group">
-            {{ form.as_p }}
-            <input class="form-control" type="submit" value="{{ btn_value }}" placeholder="what's in you mind">
+{% load crispy_forms_tags %}
+<div class="row ml-3 MidContent">
+
+<form  id='tweet_form' method="POST" action="{% if include_url %}{{ include_url }}{%  endif %}">{% csrf_token %}
+    <fieldset >
+        <div id="TxtArea" class="form-group row">
+            {{ form|crispy }}
+
         </div>
+        <div class="row form-group">
+            <div><span class="count" style="color: red;margin-left: 290px;position: absolute;"></span></div>
+            <div class="col-md-2 col-md-offset-10">
+                <input  style="background-color: lightskyblue;" class="btn btn-primary" type="submit" value="{{ btn_value }}" >
+            </div>
+        </div>
+    </fieldset>
 </form>
 
+</div>
 
-<!--
-bootstrap form group
--->
-{#<div class="form-group">#}
-{#    <label for="exampleInputEmail1">Email address</label>#}
-{#    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">#}
-{#    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>#}
-{#  </div>#}
+
+

@@ -6,31 +6,56 @@
             {% include 'user_details.html' %}
         </div>
 
-        <div class="col-sm-9">
-            <div class="row">
-                {% include 'generic_form.html' with form=create_form include_url=include_url btn_value=btn_title %}
-            </div>
-            <br>
+        <div class="col-sm-6" style="padding-bottom:100px; ">
 
-            {% for i in object_list %}
-            <div class="media">
-                  <div class="media-left">
-                    <a href="{{ i.get_absolute_url }}">
-                      <img class="media-object" style="width:60px" src='{% if i.image %}{{ i.image.url }}{% endif %}' alt="...">
-                    </a>
-                  </div>
-                  <div class="media-body">
-                      <h4 class="media-heading"><a href="{{ i.user.username }}">{{ i.user.username }}</a></h4>
-                        <p>
-                        {{ i.content }}
-                    </p>
-                  </div>
-            </div>
+        {% include 'generic_form.html' with form=create_form include_url=include_url btn_value=btn_title %}
+
              <br>
-            {% endfor %}
+
+{#            {% for i in object_list %}#}
+            <div class="row" >
+                <ul id="IdMedia" class="col">
+
+{#                    <div class="media">#}
+{#                          <img class="mr-3" src="..." alt="Generic placeholder image">#}
+{#                          <div class="media-body">#}
+{#                            <h5 class="mt-0">Media heading</h5>#}
+{#                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.#}
+{#                          </div>#}
+{#                    </div>#}
+{#                  <div class="media-left">#}
+{#                    <a href="{{ i.get_absolute_url }}">#}
+{#                      <img class="media-object" style="width:60px" src='{% if i.image %}{{ i.image.url }}{% endif %}' alt="...">#}
+{#                    </a>#}
+{#                  </div>#}
+
+
+
+
+
+{#                  <div class="media-body">#}
+{#                      <h4 class="media-heading"><a href="{{ i.user.username }}">{{ i.user.username }}</a></h4>#}
+{#                        <p>#}
+{#                            {{ i.content }}#}
+{#                        </p>#}
+{#                  </div>#}
+{#            </div>#}
+
+{#             <br>#}
+{#            {% endfor %}#}
+
+            </ul>
+        </div>
+            <div class="row col-md-1 col-md-offset-4">
+                 <button class="btn btn-light LoadMoreTweets" type="button">Load more tweets</button>
+            </div>
         </div>
 
 
+
+        <div class="col-sm-3">
+
+         </div>
 
 
 
