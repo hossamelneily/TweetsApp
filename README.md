@@ -16,10 +16,28 @@ pip install djangorestframework==3.10.3
 pip install Markdown==3.1.1
 ```
 
+## Urls
+
+  1. I have created django rest framework to easily retrieve the tweets 
+  and the user details
+  
+  > N.B: i Used pagination in the Serialize.
+  
+  .[To get the tweets](http://127.0.0.1:8000/api/tweet/)
+  
+  
+  .[To create a new tweet](http://127.0.0.1:8000/api/tweet/create/)
+   
+   
+  2. I have customized the user model to be Myuser
+   
+   .[To update the user profile](http://127.0.0.1:8000/accounts/profile)
+   
+   > N.B: i used the same urls of django.contrib.auth.urls
 
 ## Usage
 
-
+Connecting People  :busts_in_silhouette:
 
 ## Built with 
  . [Django](https://docs.djangoproject.com/en/2.2/) 
@@ -28,13 +46,16 @@ pip install Markdown==3.1.1
  
  . [Jquery](https://learn.jquery.com/)
  
- .[Bootstrap](https://getbootstrap.com/)
+ . [Bootstrap](https://getbootstrap.com/)
+ 
+ . [cripsy-forms](https://django-crispy-forms.readthedocs.io/en/latest/)
+ 
  
 ## Contributing
  
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 Please make sure to update tests as appropriate.
 
- ##Project status
+ ## Project status
  
- it is still in development phase 
+The website is under construction, stay tuned for the final version.
