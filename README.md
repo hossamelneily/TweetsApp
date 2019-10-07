@@ -18,22 +18,23 @@ pip install Markdown==3.1.1
 
 ## Urls
 
-  1. I have created django rest framework to easily retrieve the tweets 
+  1.I have created django rest framework to easily retrieve the tweets 
   and the user details
   
-  > N.B: i Used pagination in the Serialize.
   
-  .[To get the tweets](http://127.0.0.1:8000/api/tweet/)
+   . [To get the tweets](http://127.0.0.1:8000/api/tweet/)
+      
+      
+   . [To create a new tweet](http://127.0.0.1:8000/api/tweet/create/)
+   
+   
+  2.I have customized the user model to be Myuser
   
-  
-  .[To create a new tweet](http://127.0.0.1:8000/api/tweet/create/)
-   
-   
-  2. I have customized the user model to be Myuser
-   
-   .[To update the user profile](http://127.0.0.1:8000/accounts/profile)
-   
    > N.B: i used the same urls of django.contrib.auth.urls
+   
+   . [To update the user profile](http://127.0.0.1:8000/accounts/profile)
+   
+   
 
 ## Usage
 
