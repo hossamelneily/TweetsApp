@@ -16,7 +16,6 @@ class TweetSerializer(serializers.ModelSerializer):
         fields = [
             'user',
             'content',
-            'image',
             'timestamp',
             'date_display',
             'time_since'

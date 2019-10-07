@@ -1,22 +1,23 @@
 {% load crispy_forms_tags %}
-<div class="row ml-3 MidContent">
 
-<form  id='tweet_form' method="POST" action="{% if include_url %}{{ include_url }}{%  endif %}">{% csrf_token %}
-    <fieldset >
-        <div id="TxtArea" class="form-group row">
-            {{ form|crispy }}
+
+
+
+<form  class="mt-5 mb-5" id='tweet_form' method="POST" action="{% if include_url %}{{ include_url }}{%  endif %}">{% csrf_token %}
+
+        <div class="form-group">
+        {{ form|crispy }}
+
+
+{#        <div><span class="count" style="color: red;margin-left: 290px;position: absolute;"></span></div>#}
+
+        <input style="background-color: lightskyblue;float: right;" class="btn btn-light mt-2" type="submit" value="{{ btn_value }}" >
 
         </div>
-        <div class="row form-group">
-            <div><span class="count" style="color: red;margin-left: 290px;position: absolute;"></span></div>
-            <div class="col-md-2 col-md-offset-10">
-                <input  style="background-color: lightskyblue;" class="btn btn-primary" type="submit" value="{{ btn_value }}" >
-            </div>
-        </div>
-    </fieldset>
+
 </form>
 
-</div>
+
 
 
 

@@ -12,7 +12,6 @@ app_name="tweets"
 urlpatterns = [
 
     url(r'^$',GetTweet.as_view(),name='all'),
-    url(r'^$',GetTweet.as_view(),name='all'),
     url(r'^tweet/(?P<pk>\d+)/$',DetailTweet.as_view(),name='detail'),
     url(r'^tweet/create/$',CreateTweet.as_view(),name='create'),
     url(r'^tweet/delete/(?P<pk>\d+)/$',DeleteTweet.as_view(),name='delete'),

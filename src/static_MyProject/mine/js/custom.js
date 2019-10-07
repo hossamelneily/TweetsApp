@@ -1,4 +1,5 @@
 var NextUrl = ""
+var query_flag2=true
 
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
@@ -10,42 +11,53 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-function PutDataOnMedia(data,IdMedia,prepend){
+function PutDataOnMedia(data,IdMedia,prepend = false,query_flag=false){
     TweetHtml=
 
             "<div class=\"preview-box\">"+
             "<li class=\"media\">" +
             "<a class=\"pull-left\" href=\" \"> " +
-            "<img class=\"media-object rounded-circle d-flex align-self-start mr-3 \" alt=\"\" style=\"width:60px\" src=" + data.image +  ">" +
+            "<img class=\"media-object rounded-circle d-flex align-self-start mr-3 \" alt=\"\" style=\"width:60px\" src=" + data.user.profile.image +  ">" +
             "</a>"+
 
 
 
             "<div class=\"media-body \">" +
-            "<h4 class=\"mt-0 media-heading font-weight-bold\">" +
-                    "<a href='#'>"+ data.user.username+ "<small>" +
-                    "<i><a id='addons' href=\"\">Posted on "+ data.time_since+ "</a></i></small></a>" +
-            "</h4>" +
+            "<p class=\"mt-0 media-heading font-weight-bold\">" +
+                    "<a id='LinkBlueColor' href='#'>"+ data.user.username+ "" +
+            "<small><i><a id='LinkBlueColor' href=\"\">Posted on "+ data.time_since+ "</a></i></small></a>" +
+            "</p>" +
             "<p>" +
             data.content  + "<br>" +
-            "<a id='addons' href=\"\">Like.</a>" +
-            "<a id='addons' href=\"\">Reply.</a>" +
+            "<a id='LinkBlueColor' class='addons' href=\"\">Like.</a>" +
+            "<a id='LinkBlueColor' class='addons' href=\"\">Reply.</a>" +
             "</p></div></li></div><br>"
 
-    if(prepend == true){
-        IdMedia.prepend(TweetHtml)
+    if(query_flag){
+        if(query_flag2){
+            IdMedia.empty()
+            query_flag2=false
+            IdMedia.append(TweetHtml)
+        }else{
+            IdMedia.append(TweetHtml)
+        }
     }else{
-        IdMedia.append(TweetHtml)
+        if(prepend){
+                IdMedia.prepend(TweetHtml)
+            }else{
+            IdMedia.append(TweetHtml)
+        }
     }
+
 }
 
 
-function FetchTweets(data){
+function FetchTweets(data , query_flag = false ){
 var IdMedia = $("#IdMedia")
-            if (data.length >  0) {
+            if (data) {
                 $.each(data, function (key, value) {
-                        console.log(value)
-                        PutDataOnMedia(value,IdMedia,false)
+
+                        PutDataOnMedia(value,IdMedia,false,query_flag)
 
                 })
             }
@@ -58,20 +70,31 @@ var IdMedia = $("#IdMedia")
 
 function Ajaxfnc(url,method,data) {
     var IdMedia = $("#IdMedia")
+    var query = data.q
     if(url != null){
         $.ajax({
             url: url,
             method: method,
             data: data,
             success: function (data) {
-                if(url != '/api/tweet/create')
+                if(url != '/api/tweet/create/'  )   // List all tweets case
                 {
                     NextUrl = data.next
-                    if(!NextUrl){$('.LoadMoreTweets').css('display','none')}
-                    FetchTweets(data.results)
+                    if (!NextUrl) {
+                        $('.JS-LoadMoreTweets').css('display', 'none')
+                    }
 
-                }
-                else{
+
+                    if (url == '/api/tweet/search/' && query != null) {
+
+                        var query_flag = true
+                        window.history.pushState({"html": data.html, "pageTitle": data.pageTitle}, "", '/tweets/search/'+'?q='+query);
+                        $('#search-form input[name="q"]').val('');
+                    }
+
+                    FetchTweets(data.results,query_flag)
+
+                }else{                                           //create case
                     $('#TweetTA').val('');
                     PutDataOnMedia(data,IdMedia,true)
                 }
@@ -116,7 +139,7 @@ function TweetTACharCount(){
 }
 
 function LoadMoreTweets(){
-    $('.LoadMoreTweets').click(function (e) {
+    $('.JS-LoadMoreTweets').click(function (e) {
         Ajaxfnc(NextUrl, 'GET', {})
     })
 }
@@ -126,12 +149,60 @@ function EditBtn(){
     var w = $("#wrapper");
     var l = $("#list");
 }
+
+function Search_form(){
+    $('#search-form').submit(function (e) {
+        e.preventDefault()
+        var this_ = $(this)
+        var action = this_.attr('action')
+        var method = this_.attr('method')
+        q =  $("#search-form input[name='q']").val()
+        // alert(q)
+        Ajaxfnc(action,method,data={'q':q})
+
+    })
+}
+
+// function readURL(input) {
+//  // if (input) {
+//     var reader = new FileReader();
+//
+//     // reader.loaded = function(e) {
+//     //     console.log(e)
+//     //     alert('jkhbjhbjhbv')
+//         $('.prw_img').attr('src', input[0].value).width(112).height(112);
+//
+//     // };
+//
+//
+//  // }
+// }
+ function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.prw_img').attr('src', e.target.result);
+                $("form input[name='image']").val(e.target.result)
+            }
+
+            reader.readAsDataURL(input.files[0]);
+
+        }
+    }
+
 $(document).ready(function() {
     TweetTACharCount()
     LoadMoreTweets()
+    Search_form()
     Ajaxfnc('/api/tweet/','GET',data={})
     CreateTweetAPIRest()
 
+    $("form input[name='image']").change(function(e) {
+
+        readURL(this)
+
+    });
 
 
 

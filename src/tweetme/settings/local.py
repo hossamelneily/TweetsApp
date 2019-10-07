@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-
+from django.urls import reverse_lazy,reverse
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -31,6 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',   # i have moved this app before the admin app to override the template,
+                  # as i have templates under the registration dir under accounts app
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,10 +44,15 @@ INSTALLED_APPS = [
     #third_party Apps
     'crispy_forms',
     'rest_framework',
+    # 'bootstrap_datepicker',
+    'bootstrap_datepicker_plus',
+    'bootstrap4',
     #installed Apps
     'tweets',
-    'accounts'
+
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -135,3 +143,9 @@ STATIC_ROOT=os.path.join(os.path.dirname(BASE_DIR),"static_cdn")
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT=os.path.join(os.path.dirname(BASE_DIR),"static_cdn",'media')
+
+
+AUTH_USER_MODEL = 'accounts.MyUser'
+
+LOGIN_REDIRECT_URL = reverse_lazy('tweets:all')
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

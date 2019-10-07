@@ -2,19 +2,21 @@
 
 {% block content %}
 
-        <div class="col-sm-3 col-xs-12">
-            {% include 'user_details.html' %}
-        </div>
 
-        <div class="col-sm-6" style="padding-bottom:100px; ">
+        {% include 'user_details.html' %}
 
+
+        <div class="col-md-6">
+
+{#        <div class="row">#}
+{#        <div class="col-md-6 col-md-offset-2">#}
         {% include 'generic_form.html' with form=create_form include_url=include_url btn_value=btn_title %}
 
-             <br>
+
 
 {#            {% for i in object_list %}#}
-            <div class="row" >
-                <ul id="IdMedia" class="col">
+{#            <div class="row" >#}
+                <ul id="IdMedia">
 
 {#                    <div class="media">#}
 {#                          <img class="mr-3" src="..." alt="Generic placeholder image">#}
@@ -45,16 +47,29 @@
 {#            {% endfor %}#}
 
             </ul>
+                <div class="row">
+
+                        <button  style="background-color: lightskyblue;margin-bottom: 100px;" class="col-md-4 offset-md-4 btn btn-light JS-LoadMoreTweets" type="button">Load more tweets</button>
+
+                </div>
         </div>
-            <div class="row col-md-1 col-md-offset-4">
-                 <button class="btn btn-light LoadMoreTweets" type="button">Load more tweets</button>
-            </div>
-        </div>
+{#     </div>#}
+{#    </div>#}
+
+{#            <div class="row">#}
+{#                <div class="col-md-3 col-md-offset-4">#}
+
+{#                </div>#}
+{#            </div>#}
 
 
 
-        <div class="col-sm-3">
+{#       </div>#}
 
+
+
+        <div class="col-md-3">
+                <p></p>
          </div>
 
 

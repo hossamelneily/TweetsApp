@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% url 'accounts:profile' slug=request.user.slug as profile_url %}
+{#{% url 'accounts:password_change' as change_password_url %}#}
+{% load crispy_forms_field %}
+{% load crispy_forms_tags %}
+{% load static %}
+{#{% load bootstrap4 %}#}
+{#{% bootstrap_css %}#}
+{#{% bootstrap_javascript jquery='full' %}#}
+
+
+{% block content %}
+    <div style="margin-bottom: 130px;" class="card bg-light mt-5 col-md-4 offset-md-4">
+    <article class="card-body mx-auto" style="max-width: 400px;">
+        <h4 class="card-title mt-3 text-center"><strong>Update Your Profile,{{ request.user.username }}</strong></h4>
+        <br>
+        <form enctype="multipart/form-data" method="post" action="{{ profile_url }}"> {% csrf_token %}
+            {{ form.non_field_errors }}
+
+        <img class="prw_img media-object rounded-circle mx-auto" src="{% static 'media/mine/empty_pic.jpeg' %}" style="width: 100px;height:100px;display: block;margin-bottom: 15px;
+    margin-top: -11px;">
+
+
+
+        {% crispy_addon form.username prepend="<span> <i class='fa fa-user'></i> </span>" form_show_labels=False %}
+        {% crispy_addon form.email prepend="<span> <i class=\" far fa-envelope \"></i> </span>" form_show_labels=False %}
+        {% crispy_addon form.date_of_birth  prepend="<span> <i class=\" far fa-calendar-alt \"></i> </span>" form_show_labels=False %}
+
+
+
+        {% crispy_addon form.firstname  prepend="<span> <i class=\" far fa-user \"></i> </span>" form_show_labels=False %}
+        {% crispy_addon form.lastname  prepend="<span> <i class=\" far fa-user \"></i> </span>" form_show_labels=False %}
+{#        {% crispy_addon form.image  append="Browse" form_show_labels=False %}#}
+{#            <label style="background-color: lightskyblue" for="id_image" class="btn btn-light">Chooose profile pic</label>#}
+{#            <span> <i class=" far fa-file-image"></i> </span>#}
+            {{ form.image|as_crispy_field }}
+
+
+             <a class="mt-3" href="/accounts/password_change/" > Reset password?  </a>
+            <hr>
+        <div class="row col-md-10 offset-md-3">
+        <button style="background-color: lightskyblue;" type="submit" class="btn btn-light">Update</button>
+
+        </div>
+        </form>
+</article>
+</div>
+{% endblock %}

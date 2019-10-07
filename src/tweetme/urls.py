@@ -18,7 +18,8 @@ from django.urls import path
 from django.conf.urls import include,url
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.contrib.auth import urls
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
 
@@ -32,6 +33,12 @@ urlpatterns = [
 
 
     url('^api/tweet/',include('tweets.api.urls', namespace='api-tweet')),
+
+
+    url('^accounts/',include('accounts.urls', namespace='accounts')),
+    # url('^accounts/',include('django.contrib.auth.urls')),
+
+
 ]
 
 if settings.DEBUG:

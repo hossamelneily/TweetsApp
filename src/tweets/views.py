@@ -89,13 +89,23 @@ class SearchTweet(ListView):
 
     template_name = "all_tweets.html"
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['create_form'] = TweetForm()
+        context['include_url'] = reverse('tweets:create')
+        context['btn_title'] = 'Tweet'
+        return context
+
     def get_queryset(self):
-        query = self.request.GET.get('q', None)
-        if query is not None:
+        query = self.request.GET.get('q')
+
+        if query:
+            print(query)
             qs = Tweet.objects.search(query)
         else:
-            qs = Tweet.objects.none()
-        # print(qs)
+            print(query)
+            qs = Tweet.objects.all()
+        print(qs)
         return qs
 
 

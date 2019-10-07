@@ -1,27 +1,30 @@
-<div class="panel panel-default">
+<div class="col-md-3">
+<div class="card bg-light text-dark mt-5">
 
-    <div class="panel-body">
+    <div class="card-body cd-bd">
             <div class="row">
                 <div class="col-md-12 ">
-                    <center>
+
                         <a class="" href="#">
-                            <img class="media-object dp img-circle" src="" style="width: 180px;height:180px;">
+                            <img class="media-object rounded-circle mx-auto d-block" src="{% if request.user.profile.image %}{{ request.user.profile.image.url }}{% endif %}" style="width: 100px;height:100px;">
                         </a>
-                    </center>
+
                 </div>
                 <div class="col-md-12">
 
-                    <h2>Hossam Elneily</h2>
-                    <p>Software Developer at Itlogiakuwait</p>
+                    <h2>{{ request.user.firstname|capfirst }} {{ request.user.lastname|capfirst }} </h2>
+                    <h3 class="remove-decoration">Software Developer at Itlogiakuwait</h3>
                     <p>
-                        <a href="#" class="remove-decoration"><i class="glyphicon glyphicon-envelope"></i> hossamelneily@gmail.com</a> <br>
-                        <a href="http://sachitha-seram.branded.me/" target="_blank" class="remove-decoration"><i class="glyphicon glyphicon-globe"></i> www.hossamelneily.me </a><br>
-                        <a href="#" class="remove-decoration"> <i class="glyphicon glyphicon-phone"></i> +965 94720613</a>
+                        <a href="#" class="remove-decoration"><i class="fas fa-envelope"></i> {{ request.user.email }}</a> <br>
+                        <a href="" target="_blank" class="remove-decoration"><i class="fab fa-github"></i> www.hossamelneily.me </a><br>
+                        <a href="#" class="remove-decoration"> <i class="fas fa-mobile"></i> +965 94720613</a>
                     </p>
                 </div>
             </div>
     </div>
-    <div id="IdFooter" class="panel-footer" >
+
+
+    <div id="IdFooter" class="card-footer" >
         <ul class="social-network social-circle">
             <li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>
             <li><a href="#" class="icoFacebook" title="Facebook"><i class="fab fa-facebook"></i></a></li>
@@ -41,3 +44,6 @@
 {#      </ul>#}
 {#    </div>#}
 </div>
+
+</div>
+

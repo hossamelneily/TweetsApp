@@ -15,11 +15,11 @@ class TweetSerializerListAPIView(ListAPIView):
     pagination_class = LargeResultsSetPagination
 
     def get_queryset(self):
-        query = self.request.GET.get('q', '')
-
-        if query is not '':
+        query = self.request.GET.get('q')
+        print(query)
+        if query is not None:                   # if there is query to be searched for
             qs = Tweet.objects.search(query)
-        else:
+        else:                                   # if list all the tweets
             qs = Tweet.objects.all()
         print("from ajax call")
         print(qs)
