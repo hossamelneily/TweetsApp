@@ -44,11 +44,13 @@ INSTALLED_APPS = [
     #third_party Apps
     'crispy_forms',
     'rest_framework',
+    # 'location_field.apps.DefaultConfig'
     # 'bootstrap_datepicker',
-    'bootstrap_datepicker_plus',
-    'bootstrap4',
+    # 'bootstrap_datepicker_plus',
+    # 'bootstrap4',
     #installed Apps
     'tweets',
+    'Hashtag'
 
 ]
 
@@ -120,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kuwait'
 
 USE_I18N = True
 

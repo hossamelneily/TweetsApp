@@ -12,11 +12,11 @@ class UserAdmin(BaseUserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('email', 'firstname','lastname', 'is_admin')
+    list_display = ('email', 'first_name','last_name', 'is_admin')
     list_filter = ('is_admin',)
     fieldsets = (
-        (None, {'fields': ('email', 'password','username','slug')}),
-        ('Personal info', {'fields': ('firstname','lastname')}),
+        (None, {'fields': ('email', 'password','username','slug','last_login',)}),
+        ('Personal info', {'fields': ('first_name','last_name')}),
         ('Permissions', {'fields': ('is_admin','is_active')}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
@@ -30,9 +30,15 @@ class UserAdmin(BaseUserAdmin):
     search_fields = ('email','username')
     ordering = ('username',)
     filter_horizontal = ()
-    readonly_fields = ('slug',)
+    readonly_fields = ('slug','last_login',)
 
 admin.site.register(MyUser, UserAdmin)
-admin.site.register(Profile)
+
+
+class ProfileAdmin(admin.ModelAdmin):
+    readonly_fields = [
+        'date_joined'
+    ]
+admin.site.register(Profile,ProfileAdmin)
 
 admin.site.unregister(Group)

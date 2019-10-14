@@ -1,5 +1,5 @@
 from django.conf.urls import include,url
-from .views import Register,ProfileView
+from .views import Register,ProfileView,ToggleFollow
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy,reverse
 
@@ -10,7 +10,7 @@ urlpatterns = [
    # url('login/',Login.as_view(),name='login'),
 
    url(r'profile/(?P<slug>[\w.@+-]+)/$', ProfileView.as_view(),name='profile'),
-
+   url(r'profile/follow/(?P<slug>[\w.@+-]+)$', ToggleFollow.as_view(), name='Follow'),
 
    url('register/',Register.as_view(),name='register'),
    url('login/', auth_views.LoginView.as_view(),name='login'),

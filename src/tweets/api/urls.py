@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^$', TweetSerializerListAPIView.as_view(), name='all'),
     url(r'^search/$', TweetSerializerListAPIView.as_view(), name='search'),
     url(r'^create/$', TweetSerializerCreateAPIView.as_view(), name='create'),
-
+    url(r'^(?P<slug>[\w.@+-]+)/$', TweetSerializerListAPIView.as_view(), name='profile'),
 ]
 
 if settings.DEBUG:

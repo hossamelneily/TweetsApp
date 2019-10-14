@@ -3,6 +3,8 @@ from django.views.generic import ListView,DetailView,CreateView,UpdateView,Delet
 from .models import Tweet
 from .forms import TweetForm
 from django.urls import reverse_lazy,reverse
+import re
+from Hashtag.models import hashtag
 # Create your views here.
 
 
@@ -49,6 +51,7 @@ class CreateTweet(CreateView):
     def form_valid(self, form):
         if self.request.user.is_authenticated:
             form.instance.user = self.request.user
+
         # if form.instance.content  is not None:
         #     form.instance.content
         return super().form_valid(form)

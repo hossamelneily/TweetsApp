@@ -29,12 +29,19 @@ class TweetModelManager(models.Manager):
         return self.get_queryset().search(query)
 
 
+    def retweet(self,user,parent):
+        self.create(
+
+            user=user,
+            parent=parent
+        )
 class Tweet(models.Model):
+    parent     = models.ForeignKey('self',blank=True,null=True,on_delete=models.CASCADE)
     user       = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     content    = models.TextField(max_length=140,null=True,blank=True,error_messages={'max_length':'you can write at most 10 characters'})
-    # image      = models.ImageField(upload_to=content_file_name,null=True,blank=True)
     timestamp  = models.DateTimeField(auto_now_add=True)
     updated    = models.DateTimeField(auto_now=True,)
+    retweeted  = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'MyTweet'

@@ -84,8 +84,8 @@ class ProfileForm(forms.ModelForm):
             'last_login'
         ]
         widgets= {
-            'firstname':forms.TextInput(attrs={'placeholder':'First Name'}),
-            'lastname': forms.TextInput(attrs={'placeholder':'Last Name'}),
+            'first_name':forms.TextInput(attrs={'placeholder':'First Name'}),
+            'last_name': forms.TextInput(attrs={'placeholder':'Last Name'}),
         }
 
 
@@ -99,7 +99,7 @@ class ProfileForm(forms.ModelForm):
     # def __init__(self,*args,**kwargs):
     #     # self.request= kwargs.pop('request')
     #     form = super().__init__(*args,**kwargs)
-    #     form.fields['firstname']['placeholder']='First Name'
+    #     form.fields['first_name']['placeholder']='First Name'
     # def clean(self):
     #     username = self.cleaned_data.get('username')
     #     password = self.cleaned_data.get('password')

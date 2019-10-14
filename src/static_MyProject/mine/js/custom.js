@@ -12,26 +12,24 @@ function getParameterByName(name, url) {
 }
 
 function PutDataOnMedia(data,IdMedia,prepend = false,query_flag=false){
+    var img = empty_img
+    if(data.user.profile.image){
+        img = data.user.profile.image
+    }
+
     TweetHtml=
 
             "<div class=\"preview-box\">"+
             "<li class=\"media\">" +
             "<a class=\"pull-left\" href=\" \"> " +
-            "<img class=\"media-object rounded-circle d-flex align-self-start mr-3 \" alt=\"\" style=\"width:60px\" src=" + data.user.profile.image +  ">" +
+            "<img class=\"media-object rounded-circle d-flex align-self-start mr-3 \" alt=\"\" style=\"width:60px\" src=" + img +  ">" +
             "</a>"+
 
 
 
             "<div class=\"media-body \">" +
-            "<p class=\"mt-0 media-heading font-weight-bold\">" +
-                    "<a id='LinkBlueColor' href='#'>"+ data.user.username+ "" +
-            "<small><i><a id='LinkBlueColor' href=\"\">Posted on "+ data.time_since+ "</a></i></small></a>" +
-            "</p>" +
-            "<p>" +
-            data.content  + "<br>" +
-            "<a id='LinkBlueColor' class='addons' href=\"\">Like.</a>" +
-            "<a id='LinkBlueColor' class='addons' href=\"\">Reply.</a>" +
-            "</p></div></li></div><br>"
+            "<p class=\"mt-0 media-heading font-weight-bold\"><a id='LinkBlueColor' href='"+data.user.profile.profile_url+"' >"+data.user.username+"</a><small><i><a id='LinkBlueColor' href=\\\"\\\">  Posted on "+ data.time_since+ "</a></i></small></p>" +
+            "<p>"+data.content.replace(/(^|\s)#([\w\d-]+)/g,"$1<a id='LinkBlueColor' href='/tags/$2/'>#$2</a>")+"</p><a id='LinkBlueColor' class='addons' href=\\\"\\\"><i class=\"far fa-heart\" title=\"Like\"></i></a> <a id='LinkBlueColor' class='addons' href=\\\"\\\"><i class=\"fas fa-retweet\" title=\"Retweet\"></i></a></div></li></div><br>"
 
     if(query_flag){
         if(query_flag2){
@@ -60,6 +58,7 @@ var IdMedia = $("#IdMedia")
                         PutDataOnMedia(value,IdMedia,false,query_flag)
 
                 })
+                // Hashtaglinks()
             }
             else {
 
@@ -94,9 +93,11 @@ function Ajaxfnc(url,method,data) {
 
                     FetchTweets(data.results,query_flag)
 
+
                 }else{                                           //create case
                     $('#TweetTA').val('');
                     PutDataOnMedia(data,IdMedia,true)
+                    // Hashtaglinks()
                 }
 
             },
@@ -163,20 +164,6 @@ function Search_form(){
     })
 }
 
-// function readURL(input) {
-//  // if (input) {
-//     var reader = new FileReader();
-//
-//     // reader.loaded = function(e) {
-//     //     console.log(e)
-//     //     alert('jkhbjhbjhbv')
-//         $('.prw_img').attr('src', input[0].value).width(112).height(112);
-//
-//     // };
-//
-//
-//  // }
-// }
  function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -190,19 +177,43 @@ function Search_form(){
 
         }
     }
+function PrvImage_Profile(){
+    $("form input[name='image']").change(function(e) {
 
+        readURL(this)
+
+    });
+}
+//$1<a href='/tags/$2/'>#$2</a>
+// function Hashtaglinks(){
+//
+//     $('.media-body').each(function (data) {
+//
+//         var $this_ =$(this)
+//         var hasttagregex = /(^|\s)#([\w\d-]+)/g
+//         // alert($this_.html())
+//         var new_string = $this_.html().replace(hasttagregex,"$1<a href='/tags/$2/'>#$2</a>")
+//         // alert(new_string)
+//         $this_.html(new_string)
+//
+//     })
+// }
 $(document).ready(function() {
     TweetTACharCount()
     LoadMoreTweets()
     Search_form()
     Ajaxfnc('/api/tweet/','GET',data={})
     CreateTweetAPIRest()
+    PrvImage_Profile()
+    // UserDetailView()
+    // var user_name_tag = $('#LinkBlueColor')
 
-    $("form input[name='image']").change(function(e) {
-
-        readURL(this)
-
-    });
+    // $('#FollowBtn').click(function (e) {
+    //     // var $this_ = $(this)
+    //     // e.preventDefault()
+    //     // alert($this_.attr('href'))
+    //     Ajaxfnc('/accounts/profile/follow','POST',data={})
+    // })
 
 
 

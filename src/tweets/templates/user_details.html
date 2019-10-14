@@ -1,4 +1,5 @@
-<div class="col-md-3">
+{% load  static %}
+
 <div class="card bg-light text-dark mt-5">
 
     <div class="card-body cd-bd">
@@ -6,18 +7,19 @@
                 <div class="col-md-12 ">
 
                         <a class="" href="#">
-                            <img class="media-object rounded-circle mx-auto d-block" src="{% if request.user.profile.image %}{{ request.user.profile.image.url }}{% endif %}" style="width: 100px;height:100px;">
+                            <img class="media-object rounded-circle mx-auto d-block" src="{% if user.profile.image %}{{ user.profile.image.url }}{% else %}{% static 'media/mine/empty_pic.jpeg' %}{% endif %}" style="width: 100px;height:100px;">
                         </a>
 
                 </div>
                 <div class="col-md-12">
 
-                    <h2>{{ request.user.firstname|capfirst }} {{ request.user.lastname|capfirst }} </h2>
+                    <h2>{{ user.first_name|capfirst }} {{ user.last_name|capfirst }} </h2>
                     <h3 class="remove-decoration">Software Developer at Itlogiakuwait</h3>
                     <p>
-                        <a href="#" class="remove-decoration"><i class="fas fa-envelope"></i> {{ request.user.email }}</a> <br>
+                        <a href="#" class="remove-decoration"><i class="fas fa-envelope"></i> {{ user.email }}</a> <br>
                         <a href="" target="_blank" class="remove-decoration"><i class="fab fa-github"></i> www.hossamelneily.me </a><br>
-                        <a href="#" class="remove-decoration"> <i class="fas fa-mobile"></i> +965 94720613</a>
+                        <a href="#" class="remove-decoration"> <i class="fas fa-mobile"></i> +965 94720613</a><br>
+                        <a href="#" class="remove-decoration"> <i class="far fa-clock"></i> Joined {{ user.profile.date_joined|date:'F Y' }}</a>
                     </p>
                 </div>
             </div>
@@ -43,7 +45,7 @@
 {#        <li>Item</li>#}
 {#      </ul>#}
 {#    </div>#}
-</div>
+
 
 </div>
 
