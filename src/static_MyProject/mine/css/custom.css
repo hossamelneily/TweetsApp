@@ -313,3 +313,12 @@ label[for='image']{
 /*#id_image{*/
     /*display: none;*/
 /*}*/
+#retweet-icon:visited{
+    color: #17BF63;
+    pointer-events: none;
+    cursor: default;
+}
+
+#LinkgreyColor{
+	color: grey;
+}

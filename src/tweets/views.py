@@ -1,13 +1,8 @@
-from django.shortcuts import render
-from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
+from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView,View
 from .models import Tweet
 from .forms import TweetForm
 from django.urls import reverse_lazy,reverse
-import re
-from Hashtag.models import hashtag
-# Create your views here.
-
-
+from django.shortcuts import redirect
 
 
 class GetTweet(ListView):
@@ -113,7 +108,21 @@ class SearchTweet(ListView):
 
 
 
+class Retweet(View):
+    def dispatch(self, request, *args, **kwargs):
+        parent_tweet_obj = Tweet.objects.get(pk=kwargs.get('pk'))
+        child_tweet_obj = Tweet.objects.retweet(request.user,parent_tweet_obj)
+        return redirect(reverse('tweets:all'))
 
+class LikeTweet(View):
+    def dispatch(self, request, *args, **kwargs):
+        user_obj = Tweet.objects.get(pk=kwargs.get('pk'))
+        if user_obj is not None:
+            if user_obj in request.user.profile.get_following():
+                request.user.profile.following.remove(user_obj)
+            else:
+                request.user.profile.following.add(user_obj)
 
+        return redirect(reverse('accounts:profile',kwargs={'slug':request.user.slug}))
 
 

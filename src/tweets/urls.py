@@ -4,7 +4,7 @@ from django.urls import path
 from django.conf.urls import include,url
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import GetTweet,DetailTweet,CreateTweet,SearchTweet,DeleteTweet,UpdateTweet
+from .views import GetTweet,DetailTweet,CreateTweet,SearchTweet,DeleteTweet,UpdateTweet,Retweet
 
 
 app_name="tweets"
@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^tweet/update/(?P<pk>\d+)/$',UpdateTweet.as_view(),name='update'),
     url(r'^tweet/search/$',SearchTweet.as_view(),name='search'),
 
+    url(r'^tweet/(?P<pk>\d+)/retweet$', Retweet.as_view(), name='retweet'),
 
 ]
 

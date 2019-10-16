@@ -1,4 +1,4 @@
-from .serializers import TweetSerializer,UserSerializer
+from .serializers import TweetSerializer, UserSerializer
 from rest_framework.generics import ListAPIView,CreateAPIView,ListCreateAPIView,RetrieveAPIView
 from ..models import Tweet
 from rest_framework import permissions
@@ -42,20 +42,19 @@ class TweetSerializerCreateAPIView(CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-        # print(self.request.data)
         for tag in re.findall('#([\w\d-]+)', self.request.data.get('content')):
             print(tag)
             obj, created = hashtag.objects.get_or_create(tag='#' + tag)
 
 
-# class ProfileTweetSerializerRetrieveAPIView(RetrieveAPIView):
-#
-#     serializer_class = UserSerializer
-#     permission_classes = [permissions.IsAuthenticated]
-#
-#
-#     def get_object(self):
-#         return User.objects.get(slug=self.kwargs.get('slug'))
+class UsersSerializerListAPIView(ListAPIView):
+
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+    def get_queryset(self):
+        return User.objects.all()
 
 
 

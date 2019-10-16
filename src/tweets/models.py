@@ -4,7 +4,8 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.db.models import Q
-import os
+from django.db.models.signals import post_save
+
 # Create your models here.
 
 User = get_user_model()
@@ -30,11 +31,16 @@ class TweetModelManager(models.Manager):
 
 
     def retweet(self,user,parent):
-        self.create(
+        if not parent.retweeted:
+            return  self.create(
+                user=user,
+                content=parent.content,
+                parent=parent,
+                retweeted = True
+            )
+        else:
+            return None
 
-            user=user,
-            parent=parent
-        )
 class Tweet(models.Model):
     parent     = models.ForeignKey('self',blank=True,null=True,on_delete=models.CASCADE)
     user       = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
@@ -42,6 +48,7 @@ class Tweet(models.Model):
     timestamp  = models.DateTimeField(auto_now_add=True)
     updated    = models.DateTimeField(auto_now=True,)
     retweeted  = models.BooleanField(default=False)
+    Liked      = models.ManyToManyField(User,blank=True,related_name='likes')
 
     class Meta:
         verbose_name = 'MyTweet'
@@ -55,3 +62,13 @@ class Tweet(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+def RetweetPostSaveSignal(sender,instance,created,*args,**kwargs):
+    child = instance
+    if created and child.parent:
+        parent_obj = child.parent
+        parent_obj.retweeted=True
+        parent_obj.save()
+
+post_save.connect(RetweetPostSaveSignal,sender=Tweet)

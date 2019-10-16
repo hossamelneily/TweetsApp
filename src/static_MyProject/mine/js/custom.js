@@ -1,5 +1,6 @@
 var NextUrl = ""
 var query_flag2=true
+var users_list_global
 
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
@@ -11,15 +12,85 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
+
+function CreateObj(name,profile_url) {
+
+     this.username = name;
+     this.profile_url = profile_url;
+
+ }
+
+function GetExistingUsers(url,method,data) {
+    var users_list =[]
+    $.ajax({
+        url:url,
+        method:method,
+        async: false,  
+        data: data,
+        success:function (data) {
+            $.each(data,function (key,value) {
+                users_list.push(new CreateObj( value.username,value.profile.profile_url))
+            })
+        },
+        error:function (error) {
+
+        }
+    })
+     users_list_global = users_list
+
+}
 function PutDataOnMedia(data,IdMedia,prepend = false,query_flag=false){
     var img = empty_img
+    var data_content
+    var parentHtml
+    var style_retweet_icon
+    var retweeted  = false
+    if(data.retweeted){
+        retweeted = true
+    }
+    if(data.parent){
+      style_retweet_icon = "style='color:#17BF63;pointer-events:none;cursor: default'"
+      parentHtml = "<span class='ml-4'><small><a style='color:grey' class='addons' href=''><i class=\"fas fa-retweet\"></i>"+data.user.username +" Retweeted on "+data.time_since + "</a></small></span>"
+      data = data.parent
+    }else{
+        parentHtml = ''
+        if(retweeted){
+            style_retweet_icon = "style='color:#17BF63;pointer-events:none;cursor: default'"
+        }else {
+            style_retweet_icon = ''
+        }
+    }
+
     if(data.user.profile.image){
         img = data.user.profile.image
     }
+    if(data.content){
 
+        data_content=data.content.replace(/(^|\s)#([\w\d-]+)/g,"$1<a id='LinkBlueColor' href='/tags/$2/'>#$2</a>")
+
+        $.each((data.content.match(/(^|\s)@([\w\d-]+)/g)),function (key,value) {
+            var iterate_var = users_list_global.filter(user => user.username === value.substr(1))
+                    if(value && iterate_var.length && iterate_var){
+                        data_content=data_content.replace(/(^|\s)@([\w\d-]+)/g,"$1<a id='LinkBlueColor' href='"+iterate_var[0].profile_url+"'>@$2</a>")
+                    }
+
+
+        })
+
+
+    }
+    var TweetDropDownMenu =
+            "<div class=\"dropdown float-right\">" +
+            "<button style=\"color: grey\" class=\"btn dropdown-toggle\" type=\"button\"  id=\"dropdownMenu\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" +
+            "</button>" +
+            "<div class=\"dropdown-menu dropdown-menu-right \" aria-labelledby=\"dropdownMenu\">" +
+            "<a style='color: #E0245E' class=\"dropdown-item\" href=\"\">" +
+            "<i class=\"fas fa-trash-alt\"></i>  Delete</a></div></div>"
     TweetHtml=
 
             "<div class=\"preview-box\">"+
+            TweetDropDownMenu +
+            parentHtml +
             "<li class=\"media\">" +
             "<a class=\"pull-left\" href=\" \"> " +
             "<img class=\"media-object rounded-circle d-flex align-self-start mr-3 \" alt=\"\" style=\"width:60px\" src=" + img +  ">" +
@@ -29,7 +100,7 @@ function PutDataOnMedia(data,IdMedia,prepend = false,query_flag=false){
 
             "<div class=\"media-body \">" +
             "<p class=\"mt-0 media-heading font-weight-bold\"><a id='LinkBlueColor' href='"+data.user.profile.profile_url+"' >"+data.user.username+"</a><small><i><a id='LinkBlueColor' href=\\\"\\\">  Posted on "+ data.time_since+ "</a></i></small></p>" +
-            "<p>"+data.content.replace(/(^|\s)#([\w\d-]+)/g,"$1<a id='LinkBlueColor' href='/tags/$2/'>#$2</a>")+"</p><a id='LinkBlueColor' class='addons' href=\\\"\\\"><i class=\"far fa-heart\" title=\"Like\"></i></a> <a id='LinkBlueColor' class='addons' href=\\\"\\\"><i class=\"fas fa-retweet\" title=\"Retweet\"></i></a></div></li></div><br>"
+            "<p>"+data_content+"</p><a id='LinkgreyColor' class='addons' href='"+data.Tweet_url+"'><i class=\"far fa-heart\" title=\"Like\"></i></a> <a id='LinkgreyColor' "+ style_retweet_icon + " class='addons' href='"+data.Tweet_url+"retweet'><i id='retweet-icon'  class=\"fas fa-retweet\" title=\"Retweet\"></i></a></div></li></div><br>"
 
     if(query_flag){
         if(query_flag2){
@@ -58,7 +129,6 @@ var IdMedia = $("#IdMedia")
                         PutDataOnMedia(value,IdMedia,false,query_flag)
 
                 })
-                // Hashtaglinks()
             }
             else {
 
@@ -184,7 +254,7 @@ function PrvImage_Profile(){
 
     });
 }
-//$1<a href='/tags/$2/'>#$2</a>
+
 // function Hashtaglinks(){
 //
 //     $('.media-body').each(function (data) {
@@ -198,6 +268,7 @@ function PrvImage_Profile(){
 //
 //     })
 // }
+
 $(document).ready(function() {
     TweetTACharCount()
     LoadMoreTweets()
@@ -215,6 +286,8 @@ $(document).ready(function() {
     //     Ajaxfnc('/accounts/profile/follow','POST',data={})
     // })
 
+
+   GetExistingUsers('/api/tweet/users','Get',{})
 
 
 });
