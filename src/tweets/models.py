@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.db.models import Q
 from django.db.models.signals import post_save
+from Hashtag.models import hashtag
 
 # Create your models here.
 
@@ -18,8 +19,22 @@ def content_file_name(instance,filename):
 class TweetQS(models.query.QuerySet):
 
     def search(self,query):
-        lookup = Q(content__icontains=query) | Q(user__username__icontains=query)
-        return self.filter(lookup).distinct()
+
+        # lookup_tweets = Q(content__icontains=query)
+        tweets_qs_search = self.filter(content__icontains=query)
+
+        if tweets_qs_search.exists():
+            # data['tweets_qs_search']=tweets_qs_search
+            return tweets_qs_search
+        return Tweet.objects.none()
+
+
+        # if users_qs_search.exists():
+        #     data['users_qs_search'] = users_qs_search
+        #
+        # if users_qs_search.exists():
+        #     data['tags_qs_search'] = tags_qs_search
+
 
 class TweetModelManager(models.Manager):
     def get_queryset(self):
@@ -41,6 +56,33 @@ class TweetModelManager(models.Manager):
         else:
             return None
 
+    def Liked(self,user_obj,tweet_obj):
+        print(user_obj.likes.all())
+        likes_count = tweet_obj.Liked.count()
+        if tweet_obj in user_obj.likes.all():
+            if tweet_obj.parent is not None:
+                user_obj.likes.remove(tweet_obj)
+                user_obj.likes.remove(tweet_obj.parent)
+                parent_id = tweet_obj.parent.id
+                parent_likes_count = tweet_obj.parent.Liked.count()
+            else:
+                user_obj.likes.remove(tweet_obj)
+                parent_id = 0
+                parent_likes_count = 0
+            return False , likes_count , parent_id ,parent_likes_count
+        else:
+            if tweet_obj.parent is not None:
+                user_obj.likes.add(tweet_obj)
+                user_obj.likes.add(tweet_obj.parent)
+                parent_id = tweet_obj.parent.id
+                parent_likes_count = tweet_obj.parent.Liked.count()
+            else:
+                user_obj.likes.add(tweet_obj)
+                parent_id = 0
+                parent_likes_count = 0
+            return True , likes_count , parent_id ,parent_likes_count
+
+
 class Tweet(models.Model):
     parent     = models.ForeignKey('self',blank=True,null=True,on_delete=models.CASCADE)
     user       = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
@@ -49,6 +91,7 @@ class Tweet(models.Model):
     updated    = models.DateTimeField(auto_now=True,)
     retweeted  = models.BooleanField(default=False)
     Liked      = models.ManyToManyField(User,blank=True,related_name='likes')
+    Reply      = models.BooleanField(default=False,verbose_name='is_a_reply?')
 
     class Meta:
         verbose_name = 'MyTweet'
@@ -59,6 +102,9 @@ class Tweet(models.Model):
     def get_absolute_url(self):
         # return {'pk'}.format(pk=self.pk)
         return reverse('tweets:detail',kwargs={'pk':self.pk})
+
+    def get_absolute_url_API(self):
+        return reverse('api-tweet:detail',kwargs={'pk':self.pk})
 
     def __str__(self):
         return str(self.id)

@@ -1,0 +1,74 @@
+{% load static %}
+{% url 'accounts:profile' slug=user.slug as profile_url %}
+{% url 'tweets:all' as home_url %}
+{% load recommended_users %}
+
+
+
+<div class="chiller-theme">
+
+                                        <!-- Trends side part -->
+
+  <nav id="sidebar" class="sidebar-wrapper-part2" >
+    <div class="sidebar-content-trends">
+
+        <div class="sidebar-header">
+            <strong>Trends for you</strong>
+                <a class="sidebar-brand dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i>
+
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+        </div>
+
+      <!-- sidebar-header  -->
+
+
+      <div class="sidebar-menu">
+
+      </div>
+      <!-- sidebar-menu  -->
+
+    </div>
+
+                                        <!-- Followers side part -->
+    <div class="sidebar-content-follow">
+
+
+      <!-- sidebar-header  -->
+
+
+
+          <div class="sidebar-header">
+                <strong>Who to follow</strong>
+                <a class="sidebar-brand dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i>
+
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+          </div>
+
+
+
+         <div class="sidebar-menu">
+
+            {% recommended_users user %}
+
+         </div>
+      <!-- sidebar-menu  -->
+    </div>
+        <!-- sidebar-content  -->
+    <!-- sidebar-content  -->
+  </nav>
+</div>
+
+
+    

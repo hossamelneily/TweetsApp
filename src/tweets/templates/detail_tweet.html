@@ -1,7 +1,27 @@
 {% extends 'base.html' %}
+
 {% block content %}
-{% if object %}
-    {{ object.content }} <br>
-    {{ object.timestamp|timesince }}
-{%  endif %}
+
+        <div class="col-md-6">
+{#            <div class="topdiv">#}
+{#                <div class="topdiv-content">#}
+{#                    <a href="#">#}
+{#                     <i class="fas fa-arrow-left"></i>#}
+{#                    </a>#}
+{#                    <span class="ml-2">Tweet</span>#}
+{#                </div>#}
+{#            </div>#}
+            <ul id="IdMedia">
+
+
+
+            </ul>
+            <div class="row">
+
+                        <button  style="background-color: lightskyblue;margin-bottom: 60px;border-radius: 14px;border: 0;" class="col-md-4 offset-md-4 btn btn-light JS-LoadMoreTweets" type="button">Load more tweets</button>
+
+            </div>
+        </div>
+
+
 {% endblock %}

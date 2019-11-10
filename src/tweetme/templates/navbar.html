@@ -2,89 +2,55 @@
 {% url 'accounts:logout' as logout_url %}
 {% url 'accounts:profile'  slug=request.user.slug as profile_url %}
 {% url 'tweets:all' as home_url %}
-{#<nav class="navbar navbar-default">#}
-{#  <div class="container-fluid">#}
-{#    <!-- Brand and toggle get grouped for better mobile display -->#}
-{#    <div class="navbar-header">#}
-{#      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">#}
-{#        <span class="sr-only">Toggle navigation</span>#}
-{#        <span class="icon-bar"></span>#}
-{#        <span class="icon-bar"></span>#}
-{#        <span class="icon-bar"></span>#}
-{#      </button>#}
-{#      <a class="navbar-brand" href="#"><i class="fab fa-twitter"></i>TweetMe</a>#}
-{#    </div>#}
-{##}
-{#    <!-- Collect the nav links, forms, and other content for toggling -->#}
-{#    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">#}
-{##}
-{#      <ul class="nav navbar-nav">#}
-{#        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>#}
-{##}
-{#      </ul>#}
-{##}
-{##}
-{##}
-{#      {% include 'forms/search_form.html' %}#}
-{##}
-{##}
-{##}
-{#        <!-- the settings for the user account dropdown menu -->#}
-{#      <ul class="nav navbar-nav navbar-right">#}
-{#        <li class="dropdown">#}
-{#          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <i class="fas fa-cog"></i></a>#}
-{#          <ul class="dropdown-menu">#}
-{#            <li><a href="#">Profile</a></li>#}
-{#            <li><a href="#">Another action</a></li>#}
-{#            <li><a href="#">Something else here</a></li>#}
-{#            <li role="separator" class="divider"></li>#}
-{#            <li><a href="#">Separated link</a></li>#}
-{#          </ul>#}
-{#        </li>#}
-{#      </ul>#}
-{##}
-{##}
-{##}
-{#    </div><!-- /.navbar-collapse -->#}
-{#  </div><!-- /.container-fluid -->#}
-{#</nav>#}
+{% url 'accounts:login' as login_url %}
+{% url 'accounts:register' as register_url %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
 
-
-<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+<nav class="navbar sticky-top navbar-expand-lg navbar-light" {% if request.user.is_authenticated %} style="width: 75%;" {% endif %}>
     <div class="container">
-  <a class="navbar-brand" href="#">
-    <i class="fab fa-twitter"></i>TweetMe
+  <a class="navbar-brand" href="{{ home_url }}">
+    <i class="fab  fa-lg fa-twitter"></i>TweetMe
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ home_url }}">{{ request.user.username }}Home  <span class="sr-only">(current)</span></a>
-      </li>
+      {% if request.user.is_authenticated %}
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="{{ home_url }}">{{ request.user.username }}'s Home  <span class="sr-only">(current)</span></a>
+              </li>
+            </ul>
 
-    </ul>
+            {% include 'forms/search_form.html' %}
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-lg fa-caret-down"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{{ profile_url }}">Profile</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{{ logout_url }}"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                </div>
+              </li>
 
+        </ul>
+   {% else %}
+{#        <ul class="navbar-nav  ml-auto">#}
+{##}
+{#            <li class="nav-item active">#}
+{#                 <a class="nav-link" href="{{ login_url }}">Login <span class="sr-only">(current)</span></a>#}
+{#            </li>#}
+{#            <li class="nav-item">#}
+{#                 <a class="nav-link" href="{{ register_url }}">Register  </a>#}
+{#            </li>#}
+{##}
+{#        </ul>#}
 
-          {% include 'forms/search_form.html' %}
-
-
-  <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{ profile_url }}">Profile</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{{ logout_url }}">Logout</a>
-        </div>
-      </li>
-
-
-    </ul>
+  {% endif %}
 
   </div>
         </div>

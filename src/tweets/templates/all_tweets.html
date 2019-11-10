@@ -2,77 +2,30 @@
 
 {% block content %}
 
-        <div class="col-md-3">
-            {% include 'user_details.html' %}
-        </div>
 
 
+        {% if request.user.is_authenticated %}
         <div class="col-md-6">
 
-{#        <div class="row">#}
-{#        <div class="col-md-6 col-md-offset-2">#}
+
         {% include 'generic_form.html' with form=create_form include_url=include_url btn_value=btn_title %}
 
-
-
-{#            {% for i in object_list %}#}
-{#            <div class="row" >#}
                 <ul id="IdMedia">
 
-{#                    <div class="media">#}
-{#                          <img class="mr-3" src="..." alt="Generic placeholder image">#}
-{#                          <div class="media-body">#}
-{#                            <h5 class="mt-0">Media heading</h5>#}
-{#                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.#}
-{#                          </div>#}
-{#                    </div>#}
-{#                  <div class="media-left">#}
-{#                    <a href="{{ i.get_absolute_url }}">#}
-{#                      <img class="media-object" style="width:60px" src='{% if i.image %}{{ i.image.url }}{% endif %}' alt="...">#}
-{#                    </a>#}
-{#                  </div>#}
-
-
-
-
-
-{#                  <div class="media-body">#}
-{#                      <h4 class="media-heading"><a href="{{ i.user.username }}">{{ i.user.username }}</a></h4>#}
-{#                        <p>#}
-{#                            {{ i.content }}#}
-{#                        </p>#}
-{#                  </div>#}
-{#            </div>#}
-
-{#             <br>#}
-{#            {% endfor %}#}
 
             </ul>
                 <div class="row">
 
-                        <button  style="background-color: lightskyblue;margin-bottom: 100px;" class="col-md-4 offset-md-4 btn btn-light JS-LoadMoreTweets" type="button">Load more tweets</button>
+                        <button  style="margin-bottom: 60px;border-radius: 14px;border: 0;" id="btns-bg-color" class="col-md-4 offset-md-4 btn btn-light JS-LoadMoreTweets" type="button">Load more tweets</button>
 
                 </div>
         </div>
-{#     </div>#}
-{#    </div>#}
-
-{#            <div class="row">#}
-{#                <div class="col-md-3 col-md-offset-4">#}
-
-{#                </div>#}
-{#            </div>#}
-
-
-
-{#       </div>#}
-
-
-
-        <div class="col-md-3">
-                <p></p>
-         </div>
-
+        {% else %}
+            <div class="col-md-12">
+            {% include 'registration.html' with form=registerform%}
+            {% include 'registration/login.html' with form=loginform %}
+            </div>
+        {% endif %}
 
 
 {% endblock %}

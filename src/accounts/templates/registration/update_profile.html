@@ -10,8 +10,8 @@
 
 
 {% block content %}
-    <div style="margin-bottom: 130px;" class="card bg-light mt-5 col-md-4 offset-md-4">
-    <article class="card-body mx-auto" style="max-width: 400px;">
+    <div  class=" Login-register card mt-4 col-md-5 mx-auto">
+    <article class="card-body">
         <h4 class="card-title mt-3 text-center"><strong>Update Your Profile,{{ request.user.username }}</strong></h4>
         <br>
         <form enctype="multipart/form-data" method="post" action="{{ profile_url }}"> {% csrf_token %}

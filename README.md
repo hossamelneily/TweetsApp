@@ -14,6 +14,7 @@ pip install django-crispy-forms==1.7.2
 pip install django-filter==2.2.0
 pip install djangorestframework==3.10.3
 pip install Markdown==3.1.1
+pip install django-location-field
 ```
 
 ## Urls

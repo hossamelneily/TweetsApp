@@ -34,6 +34,10 @@ urlpatterns = [
 
     url('^api/tweet/',include('tweets.api.urls', namespace='api-tweet')),
 
+    url('^api/accounts/',include('accounts.api.urls', namespace='api-accounts')),
+
+    url('^api/tags/',include('Hashtag.api.urls', namespace='api-tags')),
+
 
     url('^accounts/',include('accounts.urls', namespace='accounts')),
 

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% url 'tweets:all' as home_url %}
+
+
+{% block content %}
+<div  class="Login-register card  mt-4 col-md-5 mx-auto">
+<article class="card-body">
+   <span class="logo" ><i class="fab fa-lg fa-twitter">TweetMe</i></span>
+    <div class="logouticon">
+       <i class="fas fa-sign-out-alt"></i>
+    </div>
+	<h1  class="card-title mt-3 text-center">You Have Been Logged Out</h1>
+    <h4 style="padding-bottom: 100px;" class="text-center">Thank you for using our website </h4>
+    <p class="text-center">Please <a  href="{% url 'tweets:all' %}" >click here </a> to login back to our site</p>
+
+    <div  class="text-center ">
+        <a href="">About</a>
+        <span class="ml-10 mr-10">|</span>
+        <a href="">FAQ</a>
+        <span class="ml-10 mr-10">|</span>
+        <a href="">Contact</a>
+        <span class="ml-10 mr-10">|</span>
+    </div>
+
+
+</article>
+</div>
+{% endblock content %}
+

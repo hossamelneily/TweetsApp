@@ -1,6 +1,7 @@
+MyNotes.md
 .DS_STORE
 .env
-
+.idea/
 
 # Virtualenv related
 bin/
@@ -8,15 +9,14 @@ include/
 pip-selfcheck.json
 
 # Django related
-
-
-
 src/settings/local.py
-static-cdn/  # any collected static files
+# any collected static files
+static-cdn/
+
 
 
 # Byte-compiled / optimized / DLL files
-__pycache__/
+src/tweetme/__pycache__/*
 *.py[cod]
 *$py.class
 

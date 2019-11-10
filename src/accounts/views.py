@@ -1,16 +1,19 @@
-from django.shortcuts import render
-from django.views.generic import CreateView,UpdateView,FormView,DetailView,View
-from django.contrib.auth.views import LoginView
+from django.views.generic import CreateView,UpdateView,DetailView,View
 from .forms import UserCreationForm,ProfileForm
-from django.conf import settings
 from django.urls import reverse_lazy,reverse
-from django.shortcuts import redirect
+from django.shortcuts import redirect,render
 from django.contrib.auth import  get_user_model
 from django.core.exceptions import ObjectDoesNotExist
-from accounts.models import Profile
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import views as auth_views
+from accounts.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 User = get_user_model()
 
+class CustomLoginView(auth_views.LoginView):
+
+    def form_invalid(self, form):
+        return render(self.request,'all_tweets.html',{'loginform':form,'registerform':UserCreationForm})
 
 class Register(CreateView):
 
@@ -22,8 +25,10 @@ class Register(CreateView):
     def get_success_url(self):
         return reverse_lazy('accounts:login')
 
+    def form_invalid(self, form):
+        return render(self.request,'all_tweets.html',{'loginform':AuthenticationForm,'registerform':form})
 
-class ProfileView(DetailView):
+class ProfileView(LoginRequiredMixin,DetailView):
     model = User
     template_name = 'registration/profile.html'
 
@@ -37,7 +42,7 @@ class ProfileView(DetailView):
 
 
 
-class UpdateProfileView(UpdateView):
+class UpdateProfileView(LoginRequiredMixin,UpdateView):
 
     form_class = ProfileForm
     template_name = 'registration/update_profile.html'
@@ -82,7 +87,7 @@ class UpdateProfileView(UpdateView):
 
 
 
-class ToggleFollow(View):
+class ToggleFollow(LoginRequiredMixin,View):
 
 
     def dispatch(self, request, *args, **kwargs):
@@ -92,5 +97,6 @@ class ToggleFollow(View):
                 request.user.profile.following.remove(user_obj)
             else:
                 request.user.profile.following.add(user_obj)
-
-        return redirect(reverse('accounts:profile',kwargs={'slug':request.user.slug}))
+        # return redirect(reverse('accounts:profile',kwargs={'slug':kwargs.get('slug')}))
+        # return super().dispatch(request, *args, **kwargs)
+        return redirect(request.META['HTTP_REFERER'])

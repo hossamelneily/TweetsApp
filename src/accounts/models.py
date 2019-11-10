@@ -137,8 +137,12 @@ class ProfileManager(models.Manager):
 
 
     def all(self):   #user.followed_by.all
-        print(self)  # --> profile
+        # print(self.instance)  # --> profile accounts.profile.None
+        # print("5ara")
         return self.get_queryset().exclude(user=self.instance) # user = reverse profile = self.instance
+
+    def recommended(self,user,limits=3):
+        return self.get_queryset().exclude(user__in=user.profile.get_following()).exclude(id=user.id)[:limits]
 
 
 

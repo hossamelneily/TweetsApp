@@ -148,6 +148,7 @@ MEDIA_ROOT=os.path.join(os.path.dirname(BASE_DIR),"static_cdn",'media')
 
 
 AUTH_USER_MODEL = 'accounts.MyUser'
-
+LOGIN_URL = reverse_lazy('tweets:all')
 LOGIN_REDIRECT_URL = reverse_lazy('tweets:all')
+# LOGOUT_URL=reverse_lazy('tweets:all')
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

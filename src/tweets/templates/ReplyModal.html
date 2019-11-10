@@ -1,0 +1,24 @@
+<!-- Modal -->
+<div class="modal fade" id="ReplyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+{#        <h5 class="modal-title" id="ReplyModalLabel">Modal title</h5>#}
+        <button  type="button" class="close ml-n3" data-dismiss="modal" aria-label="Close">
+          <span   style="color: #1DA1F2" aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+     <form class="form tweet_form" > {% csrf_token %}
+          <div class="modal-body">
+
+
+
+          </div>
+          <div class="modal-footer no-border">
+
+            <input  style="background-color: lightskyblue;float: right;" type="submit" value="Reply" class="btn btn-light">
+          </div>
+     </form>
+    </div>
+  </div>
+</div>

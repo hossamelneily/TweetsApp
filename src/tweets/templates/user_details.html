@@ -1,40 +1,56 @@
 {% load  static %}
-
-<div class="card bg-light text-dark mt-5">
+{% url 'accounts:update_profile' slug=user.slug as update_profile %}
+<div class="card bg-light text-dark ">
 
     <div class="card-body cd-bd">
             <div class="row">
                 <div class="col-md-12 ">
 
                         <a class="" href="#">
-                            <img class="media-object rounded-circle mx-auto d-block" src="{% if user.profile.image %}{{ user.profile.image.url }}{% else %}{% static 'media/mine/empty_pic.jpeg' %}{% endif %}" style="width: 100px;height:100px;">
+                            <img class="media-object rounded-circle" src="{% if user.profile.image %}{{ user.profile.image.url }}{% else %}{% static 'media/mine/empty_pic.jpeg' %}{% endif %}" style="width: 100px;height:100px;">
                         </a>
+
+                        {% if request.user == object %}
+                            <a  role="button" href="{{ update_profile }}"  class="btn btn-light Editbtn">Edit profile</a>
+                            {% else %}
+                                {% if object in  request.user.profile.get_following.all%}
+                                    <a  role="button" href="{% url 'api-tweet:Follow' slug=object.slug %}" id="FollowBtn" class="btn btn-light unfollowbtn api-follow-btn"><span>Following</span></a>
+                                    {% else %}
+                                     <a   role="button" href="{% url 'api-tweet:Follow' slug=object.slug %}" id="FollowBtn" class="btn btn-light followbtn api-follow-btn">Follow</a>
+                                {% endif %}
+
+                        {% endif %}
 
                 </div>
                 <div class="col-md-12">
 
-                    <h2>{{ user.first_name|capfirst }} {{ user.last_name|capfirst }} </h2>
-                    <h3 class="remove-decoration">Software Developer at Itlogiakuwait</h3>
+                    <h3>{{ user.first_name|capfirst }} {{ user.last_name|capfirst }} </h3>
+                    <span class="remove-decoration">@{{ user.slug}}</span><br>
+                    <span class="remove-decoration">Software Developer at Itlogiakuwait</span><br>
+                    <span href="#" class="remove-decoration"> <i class="far fa-clock"></i> Joined {{ user.profile.date_joined|date:'F Y' }}</span>
+
                     <p>
-                        <a href="#" class="remove-decoration"><i class="fas fa-envelope"></i> {{ user.email }}</a> <br>
-                        <a href="" target="_blank" class="remove-decoration"><i class="fab fa-github"></i> www.hossamelneily.me </a><br>
-                        <a href="#" class="remove-decoration"> <i class="fas fa-mobile"></i> +965 94720613</a><br>
-                        <a href="#" class="remove-decoration"> <i class="far fa-clock"></i> Joined {{ user.profile.date_joined|date:'F Y' }}</a>
+                            <a href="#" class="remove-decoration"><strong class="following"> {{ object.profile.get_following.all.count }} Following</strong></a>
+                        <a href="#" class="remove-decoration"><strong class="unfollow"> {{ object.followed_by.all.count }} Followers</strong></a>
+{#                        <a href="#" class="remove-decoration"><i class="fas fa-envelope"></i> {{ user.email }}</a> <br>#}
+{#                        <a href="" target="_blank" class="remove-decoration"><i class="fab fa-github"></i> www.hossamelneily.me </a><br>#}
+{#                        <a href="#" class="remove-decoration"> <i class="fas fa-mobile"></i> +965 94720613</a><br>#}
+
                     </p>
                 </div>
             </div>
     </div>
 
 
-    <div id="IdFooter" class="card-footer" >
-        <ul class="social-network social-circle">
-            <li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>
-            <li><a href="#" class="icoFacebook" title="Facebook"><i class="fab fa-facebook"></i></a></li>
-            <li><a href="#" class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-            <li><a href="#" class="icoGoogle" title="Google +"><i class="fab fa-google-plus"></i></a></li>
-            <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
-        </ul>
-    </div>
+{#    <div id="IdFooter" class="card-footer" >#}
+{#        <ul class="social-network social-circle">#}
+{#            <li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>#}
+{#            <li><a href="#" class="icoFacebook" title="Facebook"><i class="fab fa-facebook"></i></a></li>#}
+{#            <li><a href="#" class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>#}
+{#            <li><a href="#" class="icoGoogle" title="Google +"><i class="fab fa-google-plus"></i></a></li>#}
+{#            <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>#}
+{#        </ul>#}
+{#    </div>#}
 {#    <button class="btn btn-light" style="background-color: lightskyblue" id="Editbtn">Edit Profile</button>#}
 <!-- <div id="wrapper" class="open"> REMOVE THIS  -->
 {#    <div id="wrapper">#}
@@ -49,3 +65,13 @@
 
 </div>
 
+
+{#<h6>who i follow </h6>#}
+{#        {% for user in object.profile.get_following.all %}  <!-- Myuser QS -->#}
+{#          <a href="{% url 'accounts:profile' slug=user.slug %}"> {{ user.username  }}</a> <br>#}
+{#        {% endfor %}#}
+{#        <hr>#}
+{#        <h6>i followed b whom </h6>#}
+{#        {% for profile in object.followed_by.all %}  <!-- Profile QS -->#}
+{#            <a href="{% url 'accounts:profile' slug=profile.user.slug %}"> {{ profile.user.username }}</a><br>#}
+{#        {% endfor %}<hr>#}
