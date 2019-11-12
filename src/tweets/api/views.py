@@ -82,6 +82,8 @@ class TweetSerializerCreateAPIView(CreateAPIView):
         for tag in re.findall('#([\w\d-]+)', request.data.get('content')):
             print(tag)
             obj, created = hashtag.objects.get_or_create(tag='#' + tag)
+            obj.count=obj.count+1
+            obj.save()
 
         print("Create API view")
         # print(request.data.get('parent_id'))

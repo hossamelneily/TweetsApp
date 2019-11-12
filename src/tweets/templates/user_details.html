@@ -1,6 +1,6 @@
 {% load  static %}
 {% url 'accounts:update_profile' slug=user.slug as update_profile %}
-<div class="card bg-light text-dark ">
+<div style="background-color: rgba(255,255,255,0.83);" class="card text-dark user-details">
 
     <div class="card-body cd-bd">
             <div class="row">
@@ -24,19 +24,22 @@
                 </div>
                 <div class="col-md-12">
 
-                    <h3>{{ user.first_name|capfirst }} {{ user.last_name|capfirst }} </h3>
-                    <span class="remove-decoration">@{{ user.slug}}</span><br>
-                    <span class="remove-decoration">Software Developer at Itlogiakuwait</span><br>
+                    <span id="LinkBlueColor" style="font-size: larger;font-weight: bold">{{ user.first_name|capfirst }} {{ user.last_name|capfirst }} </span>
+                    <span style="color: grey" class="remove-decoration">@{{ user.slug}}</span><br>
+                    <span class="remove-decoration"><i class="fas fa-briefcase"></i> Software Developer at Itlogiakuwait</span>
+                    <span style="float: right">
+                        <a href="#" class="remove-decoration"><strong class="following"> {{ object.profile.get_following.all.count }} Following</strong></a>
+                        <a href="#" class="remove-decoration"><strong class="unfollow"> {{ object.followed_by.all.count }} Followers</strong></a>
+                    </span><br>
+                    <span><a  href="#" class="remove-decoration"><i class="fas fa-envelope"></i> {{ user.email }}</a></span>
+                    <span style="float: right;margin-right: 38px" href="#" class="remove-decoration"> <i class="fas fa-mobile"></i> +965 94720613</span><br>
+
+
                     <span href="#" class="remove-decoration"> <i class="far fa-clock"></i> Joined {{ user.profile.date_joined|date:'F Y' }}</span>
 
-                    <p>
-                            <a href="#" class="remove-decoration"><strong class="following"> {{ object.profile.get_following.all.count }} Following</strong></a>
-                        <a href="#" class="remove-decoration"><strong class="unfollow"> {{ object.followed_by.all.count }} Followers</strong></a>
-{#                        <a href="#" class="remove-decoration"><i class="fas fa-envelope"></i> {{ user.email }}</a> <br>#}
-{#                        <a href="" target="_blank" class="remove-decoration"><i class="fab fa-github"></i> www.hossamelneily.me </a><br>#}
-{#                        <a href="#" class="remove-decoration"> <i class="fas fa-mobile"></i> +965 94720613</a><br>#}
 
-                    </p>
+
+                    <span style="float: right"href="" target="_blank" class="remove-decoration"><i class="fas fa-map-marker-alt"></i> from Egypt,Alexandria</span>
                 </div>
             </div>
     </div>

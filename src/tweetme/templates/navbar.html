@@ -6,8 +6,8 @@
 {% url 'accounts:register' as register_url %}
 {% load crispy_forms_tags %}
 {% load crispy_forms_field %}
-
-<nav class="navbar sticky-top navbar-expand-lg navbar-light" {% if request.user.is_authenticated %} style="width: 75%;" {% endif %}>
+{#style="width: 75%;" {% if request.user.is_authenticated %}  {% endif %}#}
+<nav class="navbar sticky-top navbar-expand-lg navbar-light" >
     <div class="container">
   <a class="navbar-brand" href="{{ home_url }}">
     <i class="fab  fa-lg fa-twitter"></i>TweetMe

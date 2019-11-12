@@ -167,6 +167,11 @@ nav.navbar{
  margin: 0 5px;
 }
 
+.card.user-details{
+    margin-top: 13px;
+    border-radius: 20px;
+    padding-bottom: 0px!important;
+}
 
 .card-body .Editbtn{
     float:right;
@@ -176,6 +181,8 @@ nav.navbar{
     border: 1px solid lightskyblue;
     color: lightskyblue;
 }
+
+
 
 
 /*///////////////////////////////////////Follow/unfollow button start///////////////////////////////*/
@@ -442,6 +449,9 @@ div .Login-register .card-body h4{
 	color: #4267B2;
 }
 
+.JS-LoadMoreTweets{
+    background-color: lightblue !important;
+}
 .input-group ~ .invalid-feedback{ display: block; }
 
 .nonfield{
@@ -986,7 +996,7 @@ body {
 
 .sidebar-wrapper-part2 {
     right: 0 ;
-    /*margin-top: 45px;*/
+    margin-top: 58px;
 }
 
 .sidebar-wrapper-part2 .sidebar-header {
@@ -995,7 +1005,7 @@ body {
 }
 
 .sidebar-wrapper-part2 {
-  width: 340px;
+  width: 325px;
   height: 40%;
   max-height: 100%;
   position: fixed;
@@ -1119,7 +1129,37 @@ body {
 
     /*border-radius: 14px;*/
 /*}*/
+/*/////////// /////////////////////////////////////////  Right sidebar part-3//////////////////////////*/
+.sidebar-content-info {
+    height: auto;
+    bottom: 0px;
+  /*max-height: calc(100% - 30px);*/
+  /*height: calc(100% - 50px);*/
+  /*overflow-y: auto;*/
+  position: fixed;
+}
 
+.sidebar-content-info.desktop {
+  overflow-y: hidden;
+}
+
+.sidebar-wrapper-part2 .sidebar-content-info{
+    background-color:  rgba(178, 178, 178, 0.5);
+    margin-top: 13px;
+    border: 1px solid  rgba(203, 203, 203, 0.5);
+    border-radius: 14px;
+}
+.sidebar-wrapper-part2 .sidebar-content-info a{
+    color: black;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+}
+/*.chiller-theme .sidebar-wrapper-follow {*/
+    /*border: 1px solid  rgba(203, 203, 203, 0.5);*/
+
+    /*border-radius: 14px;*/
+/*}*/
 
 /*////////////////////////////////////////// End of Right sidebar //////////// */
 @keyframes splash {
@@ -1190,8 +1230,8 @@ body {
     /*padding-bottom: 10px;*/
 /*}*/
 
-.recommended-users{
-    background-color: white;
+.recommended{
+    background-color: rgba(255,255,255,0.68);
 
     border-radius: 20px;
 }
