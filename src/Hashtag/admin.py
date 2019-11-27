@@ -5,7 +5,7 @@ from .models import hashtag
 
 class HashAdmin(admin.ModelAdmin):
     readonly_fields = [
-        'timestamp'
+        'timestamp','updated'
     ]
 
 admin.site.register(hashtag,HashAdmin)

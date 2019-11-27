@@ -5,7 +5,7 @@ from django.utils.timesince import timesince
 
 class ParentTweetSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
-    date_display = serializers.SerializerMethodField()
+    date_display = serializers.DateTimeField(source='timestamp', format='%b %d  %I:%M %p',read_only=True)
     time_since = serializers.SerializerMethodField()
     Tweet_url = serializers.SerializerMethodField()
     Tweet_url_API = serializers.SerializerMethodField()
@@ -20,7 +20,7 @@ class ParentTweetSerializer(serializers.ModelSerializer):
             'timestamp',
             'date_display',
             'time_since',
-            'retweeted',
+            # 'retweeted',
             'Tweet_url',
             'Tweet_url_API',
             'likes',
@@ -28,8 +28,8 @@ class ParentTweetSerializer(serializers.ModelSerializer):
 
 
         ]
-    def get_date_display(self,obj):
-        return obj.timestamp.strftime('%b %d  %I:%M %p')
+    # def get_date_display(self,obj):
+    #     return obj.timestamp.strftime('%b %d  %I:%M %p')
 
     def get_time_since(self,obj):
         return timesince(obj.timestamp).split(',')[0]+' ago'
@@ -50,7 +50,7 @@ class TweetSerializer(serializers.ModelSerializer):
     parent_id = serializers.CharField(write_only=True, required=False)
     user = UserSerializer(read_only=True)
     parent = ParentTweetSerializer(read_only=True)
-    date_display = serializers.SerializerMethodField()
+    date_display = serializers.DateTimeField(source='timestamp', format='%b %d  %I:%M %p',read_only=True)
     time_since = serializers.SerializerMethodField()
     Tweet_url = serializers.SerializerMethodField()
     Tweet_url_API = serializers.SerializerMethodField()
@@ -68,7 +68,7 @@ class TweetSerializer(serializers.ModelSerializer):
             'timestamp',
             'date_display',
             'time_since',
-            'retweeted',
+            # 'retweeted',
             'parent',
             'Tweet_url',
             'Tweet_url_API',
@@ -82,8 +82,8 @@ class TweetSerializer(serializers.ModelSerializer):
         ]
         read_only_fields= ['Reply']
 
-    def get_date_display(self,obj):
-        return obj.timestamp.strftime('%b %d  %I:%M %p')
+    # def get_date_display(self,obj):
+    #     return obj.timestamp.strftime('%b %d  %I:%M %p')
 
     def get_time_since(self,obj):
         return timesince(obj.timestamp).split(',')[0]+' ago'

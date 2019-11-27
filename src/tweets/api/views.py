@@ -12,6 +12,8 @@ from django.http import JsonResponse
 from rest_framework.exceptions import APIException
 from rest_framework.renderers import JSONRenderer
 from rest_framework import status
+from django.http import HttpResponse,HttpResponseRedirect
+from django.urls import reverse_lazy,reverse
 
 
 User = get_user_model()
@@ -111,6 +113,19 @@ class LikesTweetsAPIView(APIView):
              response.renderer_context = {}
              return response
         raise APIException({'message':"Error in Like API function"})
+
+
+class RetweetTweetsAPIView(APIView):
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    def dispatch(self, request, *args, **kwargs):
+        print('retweet api call ')
+        tweet_obj = Tweet.objects.get(id=kwargs.get('pk'))
+        if tweet_obj is not None:
+             new_tweet =Tweet.objects.retweet(request.user,tweet_obj)
+             return HttpResponseRedirect(reverse('tweets:all'))
+        raise APIException({'message':"Error in Retweet API function"})
 
 
 class FollowTweetsAPIView(APIView):

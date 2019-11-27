@@ -1,4 +1,5 @@
 {% load static %}
+{% url 'accounts:all' as all_users %}
 <ul style=" padding-left: 0px;padding-bottom: 3px;margin-bottom: 0px;">
     {% for profile in profile_qs %}
         <li class=" media border p-2 recommended"><a class="pull-left" href="/accounts/profile/{{ profile.user.slug }}/">
@@ -18,7 +19,7 @@
         </li>
     {% endfor %}
     <li class="text-center media border p-2 recommended">
-                      <a class="mx-auto" href="">see more</a>
+                      <a class="mx-auto" href="{{ all_users  }}">see more</a>
 
     </li>
 </ul>

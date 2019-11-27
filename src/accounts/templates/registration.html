@@ -24,6 +24,9 @@
 
         {% crispy_addon form.username prepend="<span> <i class='fa fa-user'></i> </span>" form_show_labels=False %}
 
+{#        {% crispy_addon form.first_name prepend="<span> <i class='fa fa-user'></i> </span>" form_show_labels=False %}#}
+{##}
+{#        {% crispy_addon form.last_name prepend="<span> <i class='fa fa-user'></i> </span>" form_show_labels=False %}#}
 
         {% crispy_addon form.email prepend="<span> <i class='fa fa-envelope'></i> </span>" form_show_labels=False %}
 
@@ -33,7 +36,7 @@
 
 
             <button type="submit" id="btns-bg-color" class="btn btn-light btn-block mx-auto"> Create Account  </button>
-
+            {% include 'next_url.html' %}
         <p class="text-center">Have an account? <a href="{{ home_url }}">Log In</a> </p>
 </form>
 </article>

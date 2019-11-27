@@ -1,0 +1,60 @@
+{% load static %}
+{#{% if messages %}#}
+{#<ul class="messagelist">#}
+{#    {% for message in messages %}#}
+{#    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>#}
+{#        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}#}
+{#        {{ message }}#}
+{#    </li>#}
+{#    {% endfor %}#}
+{#</ul>#}
+{#{% endif %}#}
+
+{% if messages %}
+        <div class="alert alert-success messages">
+            {% for message in messages %}
+            <span {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                <img src="{% static 'admin/img/icon-yes.svg' %}">
+                {{ message|safe }}
+                <i class="fab fa-twitter"> </i>
+                <a href="#" class="float-right del-msg"><i class="fas fa-times"></i></a>
+            </span>
+
+            {% endfor %}
+        </div>
+{% endif %}
+
+{#{% if messages %}#}
+{#<ul class="messages">#}
+{#    {% for message in messages %}#}
+{#    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>#}
+{#        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}#}
+{#        {{ message }}#}
+{#    </li>#}
+{#    {% endfor %}#}
+{#</ul>#}
+{#{% endif %}#}
+{#{% if messages %}#}
+{#<ul  class="messagelist">#}
+{#    {% for message in messages %}#}
+{#    <li class="{{ message.tags }}">#}
+{#        {% if 'safe' in message.tags %}#}
+{#            {{ message|safe }}#}
+{#        {% else %}#}
+{#            {{ message }}#}
+{#        {% endif %}#}
+{#    </li>#}
+{#    {% endfor %}#}
+{#</ul>#}
+{#{% endif %}#}
+{##}
+{#{% if messages %}#}
+{#        <ul class="messagelist">#}
+{#            {% for message in messages %}#}
+{#                <li{% if message.tags %} class="{{ message.tags }}"#}
+{#                {% endif %}>#}
+{#                    {{ message}}#}
+{#                </li>#}
+{#            {% endfor %}</ul>#}
+{#{% endif %}#}

@@ -41,9 +41,9 @@ urlpatterns = [
 
     url('^accounts/',include('accounts.urls', namespace='accounts')),
 
-    url('^tags/', include('Hashtag.urls', namespace='#tags')),
-    # url('^accounts/',include('django.contrib.auth.urls')),
 
+    url('^accounts/',include('accounts.password.urls')),
+    url('^tags/', include('Hashtag.urls', namespace='#tags')),
 
 ]
 

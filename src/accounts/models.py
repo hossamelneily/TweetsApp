@@ -148,7 +148,7 @@ class ProfileManager(models.Manager):
 
 class Profile(models.Model):
     user = models.OneToOneField(MyUser,on_delete=models.CASCADE)
-    image = models.ImageField(null=True,blank=True,upload_to=content_file_name,verbose_name="Profile Picture")
+    image = models.ImageField(null=True,blank=True,upload_to=content_file_name,verbose_name="Profile Picture",default='mine/empty_pic.jpeg')
     date_of_birth = models.DateField(null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True, null=True)
     following = models.ManyToManyField(MyUser,blank=True,related_name='followed_by')

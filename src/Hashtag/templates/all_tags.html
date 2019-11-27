@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="col-md-6">
+            <h4 style="background-color: white" class="border mt-1 p-2">Trends</h4>
+            <ul style=" list-style-type: none;padding-inline-start:0px" id="IdMedia">
+{#    {% for tag in object_list %}#}
+{#        {{ tag }}#}
+{#    {% endfor %}#}
+            </ul>
+            <div class="row">
+
+                <button  style="margin-bottom: 60px;border-radius: 14px;border: 0;" class="col-md-4 offset-md-4 btn btn-light JS-LoadMoreTweets" type="button">Show more</button>
+
+            </div>
+    </div>
+
+{% endblock %}

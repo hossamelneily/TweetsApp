@@ -1,12 +1,12 @@
 {% load static %}
-
+{% url '#tags:all' as tags_url %}
 <ul style=" padding-left: 0px;padding-bottom: 3px;margin-bottom: 0px;">
     {% for tag in tags_qs %}
         <li style="font-weight: bold" class="border p-2 recommended"><a style="color: black!important;" class="pull-left" href="{% url '#tags:tweets' tag_name=tag.tag|slice:"1:" %}">{{ tag.tag }}</a>
         </li>
     {% endfor %}
     <li class="text-center media border p-2 recommended">
-                      <a class="mx-auto" href="">see more</a>
+                      <a class="mx-auto" href="{{ tags_url }}">see more</a>
 
     </li>
 </ul>

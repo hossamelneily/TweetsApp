@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-md-12">
 
-                    <span id="LinkBlueColor" style="font-size: larger;font-weight: bold">{{ user.first_name|capfirst }} {{ user.last_name|capfirst }} </span>
+                    <span id="LinkBlueColor" style="font-size: larger;font-weight: bold">{% if user.first_name and user.last_name%}{{ user.first_name|capfirst }} {{ user.last_name|capfirst }}{% else %}{{ user.username|capfirst }} {% endif %} </span><br>
                     <span style="color: grey" class="remove-decoration">@{{ user.slug}}</span><br>
                     <span class="remove-decoration"><i class="fas fa-briefcase"></i> Software Developer at Itlogiakuwait</span>
                     <span style="float: right">

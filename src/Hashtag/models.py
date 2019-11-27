@@ -1,6 +1,8 @@
 from django.db import models
+from django.urls import reverse
 
-# Create your models here.
+
+
 class hashtagManager(models.Manager):
     def trends(self,limits=7):
         return self.get_queryset().order_by('-count','-updated')[:limits]
@@ -16,3 +18,6 @@ class hashtag(models.Model):
 
 
     objects=hashtagManager()
+
+    def get_absolute_url_API(self):
+        return reverse('#tags:tweets',kwargs={'tag_name':self.tag[1:]})

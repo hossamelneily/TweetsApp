@@ -1,12 +1,13 @@
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from django.conf import settings
 from django.contrib.auth import  get_user_model
 from crispy_forms.helper import FormHelper,Layout
 from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions
 from django.contrib.auth import authenticate,login
 from bootstrap_datepicker_plus import DatePickerInput
-
+from django.utils.timezone import timezone
+from datetime import datetime
+from django.core import validators
 
 User =get_user_model()
 
@@ -22,8 +23,9 @@ class UserCreationForm(forms.ModelForm):
 
         widgets = {
             'email':forms.EmailInput(attrs={'placeholder':'Email address'}),
-            'username':forms.TextInput(attrs={'placeholder':'Full name'}),  #  i removed 'class':'form-control' as the crispy automatically add it
-
+            'username':forms.TextInput(attrs={'placeholder':'Username'}),  #  i removed 'class':'form-control' as the crispy automatically add it
+            # 'first_name': forms.TextInput(attrs={'placeholder': 'First Name'}),
+            # 'last_name': forms.TextInput(attrs={'placeholder': 'Surname'}),
         }
 
 
@@ -61,7 +63,8 @@ class UserChangeForm(forms.ModelForm):
         # field does not have access to the initial value
         return self.initial["password"]
 
-
+def get_date():
+    return timezone.localtime(timezone.now()).date()
 
 DOY = ('1980', '1981', '1982', '1983', '1984', '1985', '1986', '1987',
        '1988', '1989', '1990', '1991', '1992', '1993', '1994', '1995',
@@ -69,12 +72,25 @@ DOY = ('1980', '1981', '1982', '1983', '1984', '1985', '1986', '1987',
        '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011',
        '2012', '2013', '2014', '2015')
 
+MONTHS = {	'01':'Janauary',
+		'02':'February',
+		'03':'March',
+		'04':'April',
+		'05':'May',
+		'06':'June',
+		'07':'July',
+		'08':'August',
+		'09':'September',
+		'10':'October',
+		'11':'November',
+		'12':'December'		}
 
 class ProfileForm(forms.ModelForm):
     image = forms.ImageField(required=False,help_text='The image should be cool.',label='profile picture')
-    date_of_birth = forms.DateField(
+    date_of_birth = forms.DateField(required=False,
                 widget=forms.SelectDateWidget(years=DOY, empty_label=("Choose Year", "Choose Month", "Choose Day"))
             )
+
     class Meta:
         model = User
         exclude = [

@@ -34,15 +34,20 @@
 </head>
 <body style="background: url('{% static 'media/mine/bk_2.jpg' %}')">
 
+
     {% include 'navbar.html' %}
     {% include 'ReplyModal.html' %}
+
     <div class="container">
+
         <div class="row">
+
                 <div class="col-md-3">
                     {% if request.user.is_authenticated %}
                         {% include 'LeftSideBar.html' %}
                     {% endif %}
                 </div>
+
                 {% block content %}
                 {% endblock %}
                 <div class="col-md-3">
@@ -53,6 +58,7 @@
         </div>
 
     </div>
+
 
 {#    {% include 'footer.html' %}#}
 

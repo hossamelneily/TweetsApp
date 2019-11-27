@@ -46,15 +46,15 @@ class TweetModelManager(models.Manager):
 
 
     def retweet(self,user,parent):
-        if not parent.retweeted:
-            return  self.create(
-                user=user,
-                content=parent.content,
-                parent=parent,
-                retweeted = True
-            )
-        else:
-            return None
+        # if not parent.retweeted:
+        return  self.create(
+            user=user,
+            content=parent.content,
+            parent=parent,
+            # retweeted = True
+        )
+        # else:
+        #     return None
 
     def Liked(self,user_obj,tweet_obj):
         print(user_obj.likes.all())
@@ -89,7 +89,7 @@ class Tweet(models.Model):
     content    = models.TextField(max_length=140,null=True,blank=True,error_messages={'max_length':'you can write at most 10 characters'})
     timestamp  = models.DateTimeField(auto_now_add=True)
     updated    = models.DateTimeField(auto_now=True,)
-    retweeted  = models.BooleanField(default=False)
+    # retweeted  = models.BooleanField(default=False)
     Liked      = models.ManyToManyField(User,blank=True,related_name='likes')
     Reply      = models.BooleanField(default=False,verbose_name='is_a_reply?')
 
@@ -110,11 +110,11 @@ class Tweet(models.Model):
         return str(self.id)
 
 
-def RetweetPostSaveSignal(sender,instance,created,*args,**kwargs):
-    child = instance
-    if created and child.parent:
-        parent_obj = child.parent
-        parent_obj.retweeted=True
-        parent_obj.save()
-
-post_save.connect(RetweetPostSaveSignal,sender=Tweet)
+# def RetweetPostSaveSignal(sender,instance,created,*args,**kwargs):
+#     child = instance
+#     if created and child.parent:
+#         parent_obj = child.parent
+#         parent_obj.retweeted=True
+#         parent_obj.save()
+#
+# post_save.connect(RetweetPostSaveSignal,sender=Tweet)

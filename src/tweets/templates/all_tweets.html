@@ -6,7 +6,7 @@
 
         {% if request.user.is_authenticated %}
         <div class="col-md-6">
-
+        {% include 'messages.html' %}
 
         {% include 'generic_form.html' with form=create_form include_url=include_url btn_value=btn_title %}
 
@@ -22,6 +22,7 @@
         </div>
         {% else %}
             <div class="col-md-12">
+            {% include 'messages.html' %}
             {% include 'registration.html' with form=registerform%}
             {% include 'registration/login.html' with form=loginform %}
             </div>
