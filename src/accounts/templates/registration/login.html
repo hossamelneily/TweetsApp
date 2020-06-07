@@ -1,0 +1,31 @@
+
+{% url 'accounts:login' as login_url %}
+{% url 'accounts:password_change' as password_change %}
+
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+
+{% block content %}
+    {% url 'accounts:password_reset' as password_reset %}
+<div  class="Login-register card  mt-4 col-md-5" style="margin-right: -105px;float: right">
+<article class="card-body">
+   <span class="logo" ><i class="fab fa-lg fa-twitter">TweetMe</i></span>
+	<h4  class="card-title mt-3 text-center">Login</h4>
+
+	<form class="pl-5 pr-5" method="post" action="{{ login_url }}"> {% csrf_token %}
+
+
+        {{ form.non_field_errors }}
+
+        {% crispy_addon form.username prepend="<span> <i class='fa fa-user'></i> </span>" form_show_labels=False %}
+        {% crispy_addon form.password prepend="<span> <i class='fa fa-lock'></i> </span>" form_show_labels=False %}
+
+        <a class="float-left" href="{{ password_reset }}">Forget password ?</a>
+        <button style="float: right;width: 115px" type="submit" id="btns-bg-color" class="btn btn-light btn-block"> Login  </button>
+            {% include 'next_url.html' %}
+{#          <input type="hidden" name="next" value="{{ request.GET.next }}">#}
+    </form>
+</article>
+</div>
+{% endblock content %}
+

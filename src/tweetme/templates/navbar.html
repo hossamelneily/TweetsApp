@@ -1,0 +1,58 @@
+{% url 'tweets:search' as search_url %}
+{% url 'accounts:logout' as logout_url %}
+{% url 'accounts:profile'  slug=request.user.slug as profile_url %}
+{% url 'tweets:all' as home_url %}
+{% url 'accounts:login' as login_url %}
+{% url 'accounts:register' as register_url %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+{#style="width: 75%;" {% if request.user.is_authenticated %}  {% endif %}#}
+<nav class="navbar sticky-top navbar-expand-lg navbar-light" >
+    <div class="container">
+  <a class="navbar-brand" href="{{ home_url }}">
+    <i class="fab  fa-lg fa-twitter"></i> TweetMe
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      {% if request.user.is_authenticated %}
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="{{ home_url }}">{{ request.user.username }}'s Home  <span class="sr-only">(current)</span></a>
+              </li>
+            </ul>
+
+            {% include 'forms/search_form.html' %}
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-lg fa-caret-down"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{{ profile_url }}">Profile</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{{ logout_url }}"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                </div>
+              </li>
+
+        </ul>
+   {% else %}
+{#        <ul class="navbar-nav  ml-auto">#}
+{##}
+{#            <li class="nav-item active">#}
+{#                 <a class="nav-link" href="{{ login_url }}">Login <span class="sr-only">(current)</span></a>#}
+{#            </li>#}
+{#            <li class="nav-item">#}
+{#                 <a class="nav-link" href="{{ register_url }}">Register  </a>#}
+{#            </li>#}
+{##}
+{#        </ul>#}
+
+  {% endif %}
+
+  </div>
+        </div>
+</nav>
+
+

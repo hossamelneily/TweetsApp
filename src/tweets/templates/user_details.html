@@ -1,0 +1,80 @@
+{% load  static %}
+{% url 'accounts:update_profile' slug=user.slug as update_profile %}
+<div style="background-color: rgba(255,255,255,0.83);" class="card text-dark user-details">
+
+    <div class="card-body cd-bd">
+            <div class="row">
+                <div class="col-md-12 ">
+
+                        <a class="" href="#">
+                            <img class="media-object rounded-circle" src="{% if user.profile.image %}{{ user.profile.image.url }}{% else %}{% static 'media/mine/empty_pic.jpeg' %}{% endif %}" style="width: 100px;height:100px;">
+                        </a>
+
+                        {% if request.user == object %}
+                            <a  role="button" href="{{ update_profile }}"  class="btn btn-light Editbtn">Edit profile</a>
+                            {% else %}
+                                {% if object in  request.user.profile.get_following.all%}
+                                    <a  role="button" href="{% url 'api-tweet:Follow' slug=object.slug %}" id="FollowBtn" class="btn btn-light unfollowbtn api-follow-btn"><span>Following</span></a>
+                                    {% else %}
+                                     <a   role="button" href="{% url 'api-tweet:Follow' slug=object.slug %}" id="FollowBtn" class="btn btn-light followbtn api-follow-btn">Follow</a>
+                                {% endif %}
+
+                        {% endif %}
+
+                </div>
+                <div class="col-md-12">
+
+                    <span id="LinkBlueColor" style="font-size: larger;font-weight: bold">{% if user.first_name and user.last_name%}{{ user.first_name|capfirst }} {{ user.last_name|capfirst }}{% else %}{{ user.username|capfirst }} {% endif %} </span><br>
+                    <span style="color: grey" class="remove-decoration">@{{ user.slug}}</span><br>
+                    <span class="remove-decoration"><i class="fas fa-briefcase"></i> Software Developer at Itlogiakuwait</span>
+                    <span style="float: right">
+                        <a href="#" class="remove-decoration"><strong class="following"> {{ object.profile.get_following.all.count }} Following</strong></a>
+                        <a href="#" class="remove-decoration"><strong class="unfollow"> {{ object.followed_by.all.count }} Followers</strong></a>
+                    </span><br>
+                    <span><a  href="#" class="remove-decoration"><i class="fas fa-envelope"></i> {{ user.email }}</a></span>
+                    <span style="float: right;margin-right: 38px" href="#" class="remove-decoration"> <i class="fas fa-mobile"></i> +965 94720613</span><br>
+
+
+                    <span href="#" class="remove-decoration"> <i class="far fa-clock"></i> Joined {{ user.profile.date_joined|date:'F Y' }}</span>
+
+
+
+                    <span style="float: right"href="" target="_blank" class="remove-decoration"><i class="fas fa-map-marker-alt"></i> from Egypt,Alexandria</span>
+                </div>
+            </div>
+    </div>
+
+
+{#    <div id="IdFooter" class="card-footer" >#}
+{#        <ul class="social-network social-circle">#}
+{#            <li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>#}
+{#            <li><a href="#" class="icoFacebook" title="Facebook"><i class="fab fa-facebook"></i></a></li>#}
+{#            <li><a href="#" class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>#}
+{#            <li><a href="#" class="icoGoogle" title="Google +"><i class="fab fa-google-plus"></i></a></li>#}
+{#            <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>#}
+{#        </ul>#}
+{#    </div>#}
+{#    <button class="btn btn-light" style="background-color: lightskyblue" id="Editbtn">Edit Profile</button>#}
+<!-- <div id="wrapper" class="open"> REMOVE THIS  -->
+{#    <div id="wrapper">#}
+{#      <ul id="list">#}
+{#        <li>Item</li>#}
+{#        <li>Item</li>#}
+{#        <li>Item</li>#}
+{#        <li>Item</li>#}
+{#      </ul>#}
+{#    </div>#}
+
+
+</div>
+
+
+{#<h6>who i follow </h6>#}
+{#        {% for user in object.profile.get_following.all %}  <!-- Myuser QS -->#}
+{#          <a href="{% url 'accounts:profile' slug=user.slug %}"> {{ user.username  }}</a> <br>#}
+{#        {% endfor %}#}
+{#        <hr>#}
+{#        <h6>i followed b whom </h6>#}
+{#        {% for profile in object.followed_by.all %}  <!-- Profile QS -->#}
+{#            <a href="{% url 'accounts:profile' slug=profile.user.slug %}"> {{ profile.user.username }}</a><br>#}
+{#        {% endfor %}<hr>#}

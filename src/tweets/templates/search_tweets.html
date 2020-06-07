@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="bs-example mx-auto col-md-6">
+    <h4 class="mt-3">Search Results</h4>
+
+    <ul class="nav nav-tabs pt-2">
+
+        <li class="nav-item">
+            <a id="btns-bg-color" style="width: auto" href="#tweets" class="nav-link active mr-3" data-toggle="tab">Tweets</a>
+        </li>
+        <li class="nav-item">
+            <a id="btns-bg-color" style="width: auto" href="#people" class="nav-link mr-3" data-toggle="tab">People</a>
+        </li>
+
+        <li class="nav-item">
+            <a id="btns-bg-color" style="width: auto" href="#tags" class="nav-link" data-toggle="tab">Hashtags</a>
+        </li>
+
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="tweets">
+            <h3 class="mt-2">Tweets tab content</h3>
+            <ul id="IdMedia">
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="people">
+            <h3 class="mt-2">people tab content</h3>
+
+            <ul id="IdMedia-users">
+                {% for user in users_qs_search %}
+                    <li class="media"><a class="pull-left profile-view" href="/accounts/profile/{{ user.slug }}/">
+                    <img class="media-object rounded-circle d-flex align-self-start mr-3 img-fluid" alt="" style="width:60px" src="{% if user.profile.image %}{{ user.profile.image.url }}{% else %}{% static 'media/mine/empty_pic.jpeg' %}{% endif %}"></a>
+                    <div class="media-body ">
+                        <p class="media-heading font-weight-bold">
+                            <a id="LinkBlueColor"  href="/accounts/profile/{{ user.slug }}/">{{ user.username }}</a>
+                            {% if user != request.user %}
+                                {% if user in  request.user.profile.get_following.all%}
+                                            <a  style="float: right" role="button" href="{% url 'api-tweet:Follow' slug=user.slug %}" id="FollowBtn" class="btn btn-light unfollowbtn api-follow-btn"><span>Following</span></a>
+                                            {% else %}
+                                             <a   style="float: right" role="button" href="{% url 'api-tweet:Follow' slug=user.slug %}" id="FollowBtn" class="btn btn-light followbtn api-follow-btn">Follow</a>
+                                {% endif %}
+                            {% endif %}
+                        </p>
+
+                    </div>
+                    </li>
+
+
+                {% empty %}
+                    <li class="lead">Sorry, no users found.</li>
+                {% endfor %}
+            </ul>
+
+
+
+        </div>
+        <div class="tab-pane fade show" id="tags">
+            <h3 class="mt-2">tags tab content</h3>
+            <ul id="IdMedia-tags">
+                {% for tag in tags_qs_search %}
+
+                  <li><a href="{% url '#tags:tweets' tag_name=tag.tag|slice:"1:" %}">{{ tag }}</a></li>
+
+                {% empty %}
+                    <li class="lead">Sorry, no hashtags found.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+    <li class="media"><a class="pull-left profile-view" href="/accounts/profile/flupper/">
+        <img class="media-object rounded-circle d-flex align-self-start mr-3 img-fluid" alt="" style="width:60px" src="http://127.0.0.1:8000/media/user_1/7069126721492718354.jpg"></a>
+        <div class="media-body ">
+            <p class="mt-0 media-heading font-weight-bold">
+                <a id="LinkBlueColor" class="profile-view" href="/accounts/profile/flupper/">Hossy</a>
+                <br>
+            </p>
+        </div>
+    </li>
+

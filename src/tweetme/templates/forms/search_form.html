@@ -1,0 +1,12 @@
+{% url 'api-tweet:search' as api_search_url %}
+{% url 'tweets:search' as search_url %}
+
+<form   id="search-form" class="form-inline navbar-search" method="GET" action="{{ search_url }}" data-url="{{ api_search_url }}">
+
+        <div class="form-group">
+            <span class="fa fa-search search-icon"></span>
+            <input type="submit" style="display: none" />
+            <input type="search" class="form-control py-2 border-right-0 border search_query" placeholder="Search" name="q" value="{{ request.GET.q }}" aria-label="Search">
+        </div>
+</form>
+

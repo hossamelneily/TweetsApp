@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="col-md-6">
+            <h4 style="background-color: white" class="border mt-1 p-2">Who to follow</h4>
+
+{#            {% include 'RecommendedUsers.html' with profile_qs=object_list %}#}
+            <ul style=" padding-left: 0px;padding-bottom: 3px;margin-bottom: 0px;">
+            {% for profile in object_list %}
+                <li class=" media border p-2 recommended"><a class="pull-left" href="/accounts/profile/{{ profile.user.slug }}/">
+                            <img class="media-object rounded-circle d-flex align-self-start mr-3 img-fluid" alt="" style="width:60px" src="{% if profile.image %}{{ profile.image.url }}{% else %}{% static 'media/mine/empty_pic.jpeg' %}{% endif %}"></a>
+                            <div class="media-body font-weight-bold">
+
+                                <p class="media-heading font-weight-bold mr-2">
+
+                                    <span>
+                                        <a style="list-style-type:none;" id="LinkBlueColor"   href="/accounts/profile/{{ profile.user.slug }}/">{{ profile.user.username }}<i style="color: lightskyblue" class="pl-1 fa-sm fas fa-check-circle"></i></a><br>
+                                        <span style="color: grey" class="remove-decoration">@{{ profile.user.slug}}</span>
+                                    </span>
+                                    <a  style="width:100px;" role="button" href="{% url 'api-tweet:Follow' slug=profile.user.slug %}" id="FollowBtn" class="btn btn-light followbtn api-follow-btn ">Follow</a>
+                                </p>
+
+                            </div>
+                </li>
+            {% endfor %}
+
+            </ul>
+    </div>
+
+{% endblock %}

@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/Data/BackupData/Web Development /Python/Projects/Tweetme/bin/python3.7" "$0" "$@"
+'''exec' "/Data/BackupData/Web Development /Python/Projects/Tweetme/bin/python" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+        {% if request.user.is_authenticated %}
+        <div class="col-md-6">
+        {% include 'messages.html' %}
+
+        {% include 'generic_form.html' with form=create_form include_url=include_url btn_value=btn_title %}
+
+                <ul id="IdMedia">
+
+
+            </ul>
+                <div class="row">
+
+                        <button  style="margin-bottom: 60px;border-radius: 14px;border: 0;" id="btns-bg-color" class="col-md-4 offset-md-4 btn btn-light JS-LoadMoreTweets" type="button">Load more tweets</button>
+
+                </div>
+        </div>
+        {% else %}
+            <div class="col-md-12">
+            {% include 'messages.html' %}
+            {% include 'registration.html' with form=registerform%}
+            {% include 'registration/login.html' with form=loginform %}
+            </div>
+        {% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% url 'accounts:profile' slug=request.user.slug as profile_url %}
+{% load crispy_forms_field %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+
+{% block content %}
+
+
+
+
+
+    <div class="col-md-6">
+                {% include 'user_details.html' with user=object %}<br>
+
+                 <ul id="IdMedia">
+
+
+                 </ul>
+                <div class="row">
+
+                        <button  style="margin-bottom: 60px;border-radius: 14px;border: 0;" class="col-md-4 offset-md-4 btn btn-light JS-LoadMoreTweets" type="button">Load more tweets</button>
+
+                </div>
+    </div>
+{% endblock %}

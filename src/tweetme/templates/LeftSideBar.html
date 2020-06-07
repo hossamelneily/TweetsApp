@@ -1,0 +1,116 @@
+{% load static %}
+{% url 'accounts:profile' slug=user.slug as profile_url %}
+{% url 'tweets:all' as home_url %}
+{%  url '#tags:all' as all_tags %}
+
+<div class="page-wrapper chiller-theme toggled">
+
+  <a id="show-sidebar" class="btn btn-sm btn-light" href="#">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+
+      <div class="sidebar-header">
+
+        <a href="{{ profile_url }}" class="user-pic">
+          <img class="img-responsive img-rounded" src="{% if user.profile.image %}{{ user.profile.image.url }}{% else %}{% static 'media/mine/empty_pic.jpeg' %}{% endif %}"
+{#                  "https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"#}
+            alt="User picture">
+        </a>
+        <div class="user-info">
+          <span class="user-name"><strong>{% if user.first_name and user.last_name%}{{ user.first_name|capfirst }} {{ user.last_name|capfirst }}{% else %}{{ user.username|capfirst }} {% endif %}</strong>
+          </span>
+          <span class="user-role">Software Developer</span>
+          <span class="user-status">
+            <i class="fa fa-circle"></i>
+            <span>Online</span>
+          </span>
+        </div>
+        <div class="sidebar-brand">
+
+            <div id="close-sidebar">
+              <i class="fas fa-times"></i>
+            </div>
+          </div>
+      </div>
+      <!-- sidebar-header  -->
+
+
+      <div class="sidebar-menu">
+        <ul>
+
+          <li>
+            <a href="{{ home_url }}">
+              <i class="fas fa-home"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li>
+            <a  href="{{ all_tags }}">
+             <i class="fas fa-hashtag"></i>
+              <span>Hashtags</span>
+            </a>
+          </li>
+            <li>
+            <a href="#">
+             <i class="far fa-bell"></i>
+              <span>Notifications</span>
+            </a>
+          </li>
+            <li>
+            <a href="#">
+             <i class="far fa-envelope"></i>
+              <span>Messages</span>
+            </a>
+          </li>
+            <li>
+            <a href="{{ profile_url }}">
+              <i class="far fa-user-circle"></i>
+              <span>profile</span>
+            </a>
+          </li>
+
+            <li class="sidebar-li-Tweetbtn">
+                <a  class='sidebar-Tweetbtn btn btn-sm btn-light ml-5'  href='#'>
+                    <i class="fab fa-lg fa-twitter"> </i>
+                      <span>Tweet</span>
+                </a>
+            </li>
+
+
+
+        </ul>
+
+      </div>
+      <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-content  -->
+
+
+    <div class="sidebar-footer">
+      <a href="https://www.facebook.com/hossam.elneily">
+        <i class="fab  fa-lg fa-facebook"> </i>
+      </a>
+      <a href="https://twitter.com/HElneily">
+       <i class="fab fa-lg fa-twitter"> </i>
+      </a>
+      <a href="www.linkedin.com/in/hossam-elneily">
+        <i class="fab fa-lg fa-linkedin"> </i>
+      </a>
+      <a href="https://github.com/hossamelneily">
+        <i class="fab fa-lg  fa-github"></i>
+      </a>
+
+    </div>
+
+
+
+
+
+  </nav>
+  <!-- sidebar-wrapper  -->
+
+</div>
+
+    

@@ -1,0 +1,60 @@
+
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+{% url 'accounts:login' as login_url %}
+{% url 'accounts:register' as register_url %}
+{% url 'tweets:all' as home_url%}
+
+{% block content %}
+<div   class="Login-register card mt-4  col-md-6 " style="margin-left: -85px;float: left;">
+<article class="card-body">
+    <span class="logo" ><i class="fab fa-lg fa-twitter">TweetMe</i></span>
+	<h4 class="card-title mt-3 text-center">Create Account</h4>
+	<p class="text-center">Get started with your free account</p>
+	<p class="text-center">
+		<a href="" id="btns-bg-color" class="btn btn-light"> <i style="color: white" class="fab fa-lg fa-facebook"></i>   Login via facebook</a>
+	</p>
+	<p  class="divider-text">
+        <span  style="background-color: #CED4DA;" class="">OR</span>
+    </p>
+	<form class="pl-5 pr-5" method="post" action="{{ register_url }}"> {% csrf_token %}
+
+
+        {{ form.non_field_errors }}
+
+        {% crispy_addon form.username prepend="<span> <i class='fa fa-user'></i> </span>" form_show_labels=False %}
+
+{#        {% crispy_addon form.first_name prepend="<span> <i class='fa fa-user'></i> </span>" form_show_labels=False %}#}
+{##}
+{#        {% crispy_addon form.last_name prepend="<span> <i class='fa fa-user'></i> </span>" form_show_labels=False %}#}
+
+        {% crispy_addon form.email prepend="<span> <i class='fa fa-envelope'></i> </span>" form_show_labels=False %}
+
+         {% crispy_addon form.password1 prepend="<span> <i class='fa fa-lock'></i> </span>" form_show_labels=False %}
+
+        {% crispy_addon form.password2 prepend="<span> <i class='fa fa-lock'></i> </span>" form_show_labels=False %}
+
+
+            <button type="submit" id="btns-bg-color" class="btn btn-light btn-block mx-auto"> Create Account  </button>
+            {% include 'next_url.html' %}
+        <p class="text-center">Have an account? <a href="{{ home_url }}">Log In</a> </p>
+</form>
+</article>
+</div> <!-- card.// -->
+{% endblock %}
+
+
+
+{#    <div class="form-group input-group">#}
+{#    	<div class="input-group-prepend">#}
+{#		    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>#}
+{#		</div>#}
+{#		<select class="custom-select" style="max-width: 120px;">#}
+{#		    <option selected="">+965</option>#}
+{#		    <option value="1">+972</option>#}
+{#		    <option value="2">+198</option>#}
+{#		    <option value="3">+701</option>#}
+{#		</select>#}
+{#    	<input name="" class="form-control" placeholder="Phone number" type="text">#}
+{#    </div> <!-- form-group// -->#}
+

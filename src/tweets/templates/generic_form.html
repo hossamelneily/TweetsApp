@@ -1,0 +1,23 @@
+{% load crispy_forms_tags %}
+
+
+
+
+<form  class="mt-5 mb-5 tweet_form"  method="POST" action="{% if include_url %}{{ include_url }}{%  endif %}">{% csrf_token %}
+
+        <div class="form-group">
+        {{ form|crispy }}
+
+
+{#        <div><span class="count" style="color: red;margin-left: 290px;position: absolute;"></span></div>#}
+
+        <input style="float: right;border-radius: 20px;width: 150px;" id="btns-bg-color" class="btn btn-light mt-2 " type="submit" value="{{ btn_value }}" >
+
+        </div>
+
+</form>
+
+
+
+
+
